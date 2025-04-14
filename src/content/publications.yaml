@@ -1,0 +1,71 @@
+- id: pathways
+  title: "Pathways to Data Scaling Law of Robotics Foundation Model"
+  authors:
+      - name: "Haoru Xue" 
+        equal_contribution: true
+        url: "https://example.com/chaoyi" 
+      - name: "Xiaoyu Huang"
+        equal_contribution: true
+        url: "https://scholar.google.com/citations?user=G-x_szsAAAAJ&hl=en"
+      - name: Thomas Kragerud
+  venue:
+    acronym: CoRL
+    name:  Conference on Robot Learning
+  year: 2025
+  date: "2025-04-30"
+  website: "https://haoruxue.github.io/data-scaling-law-of-rfm/"
+  image: "/images/publications/pathway_2025.png"
+  is_preprint: true
+  tldr: "The single most valuable lesson from the success of LLM is that scaling works. Before we are carried away by all the fancy current techniques of RL finetuning (e.g. Deepseek R1), RAG, or inference-time compute, the scaling of data is the single most important thing for RFM to gain rookie-level capabilities."
+
+
+- id: dile_mpc
+  title: "Full-Order Sampling-Based MPC for Torque-Level Locomotion Control via Diffusion-Style Annealing"
+  authors:
+    - name: "Haoru Xue"
+      equal_contribution: true
+      url: "https://example.com/haoru"  # optional
+    - name: "Chaoyi Pan" 
+      equal_contribution: true
+      url: "https://example.com/chaoyi"  # optional
+    - name: "Zeji Yi"
+    - name: "Guannan Qu"
+    - name: "Guanya Shi"
+  venue:
+    acronym: "ICRA"  # for filtering and badge display
+    name: "International Conference on Robotics and Automation"  # full name for display
+  year: 2025
+  date: "2024-02-05"
+  pdf: "https://arxiv.org/abs/2402.12345"
+  code: "https://github.com/LeCAR-Lab/dial-mpc"
+  website: "https://lecar-lab.github.io/dial-mpc/"
+  image: "/images/publications/2024_DIAL-MPC.gif"
+  is_preprint: false
+  tldr: "DIAL-MPC is the first training-free method achieving real-time whole-body torque control using full-order dynamics."
+
+
+- id: any_car
+  title: "AnyCar to Anywhere: Learning Universal Dynamics Model for Agile and Adaptive Mobility"
+  authors:
+    - name: "Wenli Xiao"
+      equal_contribution: true
+      url: "https://example.com/haoru"  # optional
+    - name: "Haoru Xue" 
+      equal_contribution: true
+      url: "https://example.com/chaoyi"  # optional
+    - name: "Tony Tao"
+    - name: "Dvij Kalaria"
+    - name: "John M. Dolan"
+    - name: "Guanya Shi"
+  venue:
+    acronym: "ICRA"  # for filtering and badge display
+    name: "International Conference on Robotics and Automation"  # full name for display
+  year: 2025
+  date: "2024-02-05"
+  pdf: "https://lecar-lab.github.io/anycar/resources/anycar.pdf"
+  code: "https://github.com/LeCAR-Lab/anycar"
+  website: "https://lecar-lab.github.io/anycar/"
+  video: "https://www.youtube.com/embed/BiSYeNb0Y70"
+  image: "/images/publications/anycar_cover.gif"
+  is_preprint: false
+  tldr: "AnyCar 🏎️ 🚗 🚙 🛻 🚚: a generalist dynamics model 🌎 built with transformer + large-scale sim pre-training + small-scale real fine-tuning. Achieves agile and adaptive control on a family of wheeled embodiments (few or zero shot) and outperforms specialist policies."

@@ -1,11 +1,130 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from "@layouts/BaseLayout.astro";
+import BabylonViewer from "@components/BabylonViewer";
+//import ResearchCard from "@components/ResearchCard.astro";
+import { getCollection } from 'astro:content';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const title = "Home";
+
+// Get sponsors data using content collections
+const sponsors = await getCollection('sponsors');
+
+// Load news posts from content collection
+const allNewsPosts = await getCollection('news');
+
+// Process posts and sort by date
+const postsArray = allNewsPosts
+  .map(post => ({
+    ...post.data,
+    slug: post.slug,
+    // Convert string date to Date object if needed
+    date: post.data.date ? new Date(post.data.date) : new Date(0)
+  }))
+  .sort((a, b) => b.date.getTime() - a.date.getTime());
+
+const latestNews = postsArray.slice(0, 2);
+
+// Get featured research areas 
+const allResearchAreas = await getCollection('research', entry => 
+  !entry.id.startsWith('_') && entry.data.featured === true
+);
+const featuredAreas = allResearchAreas.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout title={title}>
+  <!-- Hero with gradient background - Taller -->
+<!-- Replace your hero section with this -->
+<section class="h-almost-screen w-full px-6 bg-gradient-to-r from-emberGreen-500 via-emberBlue-500 to-emberGray-500 text-white dark:text-white text-gray-800 flex flex-col lg:flex-row items-center rounded-xl shadow-lg my-8 overflow-hidden">
+  <div class="max-w-xl py-12 lg:py-0 relative z-10">
+    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-gray-900 dark:text-white">
+      <span class="block">Embodied</span>
+      <span class="block">Intelligence &</span>
+      <span class="block">Robotics Lab</span>
+    </h1>
+    <p class="text-xl mb-6 text-gray-800 dark:text-white">
+      We combine machine learning, AI, and mechanical design to develop 
+      robots that perceive, learn, and act autonomously in complex environments.
+    </p>
+    <p class="text-lg mb-8 text-gray-700 dark:text-gray-200">
+      Based in UC Berkeley, EMBER Lab focuses on human-robot interaction, 
+      reinforcement learning, and embodied AI for next-generation robotics.
+    </p>
+    <div class="mt-8">
+      <a href="/research" class="px-8 py-4 bg-gradient-to-r from-emberGreen-500 to-emberBlue-500 hover:brightness-110 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 inline-block hover:-translate-y-1">
+        Our Research
+      </a>
+    </div>
+  </div>
+  <div class="w-full lg:w-1/2 h-[500px] mt-8 lg:mt-0 relative z-10">
+    <BabylonViewer client:only="react" />
+  </div>
+</section>
+
+  <!-- Research Areas -->
+  <section class="py-16">
+    <!-- Same content as before -->
+    <h2 class="text-3xl font-semibold mb-8 text-gray-800 dark:text-white text-center">Research Areas</h2>
+    
+    <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {featuredAreas.map(area => (
+        <ResearchCard area={area} isDetailed={false} />
+      ))}
+    </div> -->
+    
+    <div class="mt-10 text-center">
+      <a href="/research" class="px-6 py-3 bg-emberBlue-500 hover:bg-emberBlue-600 text-white rounded-lg transition-standard inline-flex items-center">
+        Explore All Research
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Latest News -->
+  <section class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 my-12">
+    <!-- Same content as before -->
+    <h2 class="text-3xl font-semibold mb-8 text-gray-800 dark:text-white">Latest News</h2>
+    {latestNews.map((post) => (
+      <article class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-sm mb-6 transform translate-y-0 hover-lift">
+        <h3 class="text-2xl font-bold mb-2 text-gray-800 dark:text-white">{post.title}</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+          {post.date.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})}
+        </p>
+        <p class="text-gray-700 dark:text-gray-200">{post.summary}</p>
+        <a href={`/news/${post.slug || '#'}`} class="inline-flex items-center mt-4 text-emberBlue-600 hover:text-emberBlue-700 dark:text-emberBlue-300 dark:hover:text-emberBlue-200">
+          Read more
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </article>
+    ))}
+    <div class="text-center mt-8">
+      <a href="/news" class="px-5 py-2 bg-emberBlue-500 hover:bg-emberBlue-600 text-white rounded-lg transition-standard inline-block hover:-translate-y-1">
+        View All News
+      </a>
+    </div>
+  </section>
+
+  <!-- Sponsors -->
+  <section class="py-16">
+    <h2 class="text-3xl font-semibold mb-4 text-gray-800 dark:text-white text-center">Our Sponsors</h2>
+    <p class="text-gray-600 dark:text-gray-300 text-center mb-12 max-w-2xl mx-auto">
+      We're grateful for the support of these organizations that make our research possible.
+    </p>
+    
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-center justify-items-center">
+      {sponsors.map((sponsor) => (
+        <a href={sponsor.data.url} target="_blank" rel="noopener" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center w-full h-32">
+          <img src={sponsor.data.logo} alt={sponsor.data.name} class="max-h-16 max-w-full object-contain filter dark:brightness-90 dark:contrast-125" />
+        </a>
+      ))}
+      
+      <!-- You can remove this if DARPA is now included in your sponsors.yaml -->
+      <a href="https://www.darpa.mil/" target="_blank" rel="noopener" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center w-full h-32">
+        <img src="/sponsors/darpa-logo.png" alt="DARPA" class="max-h-16 max-w-full object-contain filter dark:brightness-90 dark:contrast-125" />
+      </a>
+    </div>
+  </section>
+</BaseLayout>

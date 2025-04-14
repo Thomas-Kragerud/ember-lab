@@ -1,0 +1,279 @@
+@import "tailwindcss";
+
+/* Configure dark mode for Tailwind 4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Extend Tailwind with your customizations */
+@layer base {
+  :root {
+    /* Light mode theme colors (default) */
+    --color-emberGreen-50: #eefff6;
+    --color-emberGreen-100: #d1ffe9;
+    --color-emberGreen-300: #63efae;
+    --color-emberGreen-500: #22c87a;
+    --color-emberGreen-600: #10b366;
+    --color-emberGreen-700: #0b8c56;
+    --color-emberGreen-900: #005e39;
+
+    --color-emberBlue-50: #eeffff;
+    --color-emberBlue-100: #c7f4ff;
+    --color-emberBlue-300: #66d5ff;
+    --color-emberBlue-500: #0096cc;
+    --color-emberBlue-600: #0084b8;
+    --color-emberBlue-700: #006490;
+    --color-emberBlue-900: #003a55;
+
+    --color-emberGray-50: #f7f9fc;
+    --color-emberGray-100: #e8ecf1;
+    --color-emberGray-300: #b0bdca;
+    --color-emberGray-500: #607d8b;
+    --color-emberGray-700: #435761;
+    --color-emberGray-900: #1e272e;
+
+    --color-emerald-600: #059669;
+    --color-emerald-700: #047857;
+
+    /* Custom background image */
+    --bg-ember-gradient: linear-gradient(135deg, #22c87a 0%, #0096cc 50%, #607d8b 100%);
+
+    /* Custom box shadow */
+    --shadow-ember: 0 4px 20px -2px rgba(0, 150, 204, 0.25);
+
+    /* Custom height */
+    --height-almost-screen: 90vh;
+  }
+
+  /* Dark mode theme variables */
+  .dark {
+    /* You can adjust these values if needed for dark mode */
+    --color-emberGreen-300: #50c79d;
+    --color-emberGreen-500: #10a562;
+    --color-emberGreen-700: #0a6e44;
+
+    --color-emberBlue-300: #5cb8e0;
+    --color-emberBlue-500: #0084b8;
+    --color-emberBlue-700: #005170;
+
+    /* Custom background image for dark mode */
+    --bg-ember-gradient: linear-gradient(135deg, #0a6e44 0%, #005170 50%, #435761 100%);
+
+    /* Custom box shadow for dark mode */
+    --shadow-ember: 0 4px 20px -2px rgba(0, 120, 184, 0.35);
+  }
+  
+  /* Base HTML element styling - essential for theme transitions */
+  html {
+    @apply bg-white dark:bg-gray-900;
+    color-scheme: light;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  html.dark {
+    color-scheme: dark;
+  }
+}
+
+@layer utilities {
+  /* Color utilities */
+  .bg-emberGreen-50 { background-color: var(--color-emberGreen-50); }
+  .bg-emberGreen-100 { background-color: var(--color-emberGreen-100); }
+  .bg-emberGreen-300 { background-color: var(--color-emberGreen-300); }
+  .bg-emberGreen-500 { background-color: var(--color-emberGreen-500); }
+  .bg-emberGreen-600 { background-color: var(--color-emberGreen-600); }
+  .bg-emberGreen-700 { background-color: var(--color-emberGreen-700); }
+  .bg-emberGreen-900 { background-color: var(--color-emberGreen-900); }
+
+  .bg-emberBlue-50 { background-color: var(--color-emberBlue-50); }
+  .bg-emberBlue-100 { background-color: var(--color-emberBlue-100); }
+  .bg-emberBlue-300 { background-color: var(--color-emberBlue-300); }
+  .bg-emberBlue-500 { background-color: var(--color-emberBlue-500); }
+  .bg-emberBlue-600 { background-color: var(--color-emberBlue-600); }
+  .bg-emberBlue-700 { background-color: var(--color-emberBlue-700); }
+  .bg-emberBlue-900 { background-color: var(--color-emberBlue-900); }
+
+  .bg-emberGray-50 { background-color: var(--color-emberGray-50); }
+  .bg-emberGray-100 { background-color: var(--color-emberGray-100); }
+  .bg-emberGray-300 { background-color: var(--color-emberGray-300); }
+  .bg-emberGray-500 { background-color: var(--color-emberGray-500); }
+  .bg-emberGray-700 { background-color: var(--color-emberGray-700); }
+  .bg-emberGray-900 { background-color: var(--color-emberGray-900); }
+
+  .bg-emerald-600 { background-color: var(--color-emerald-600); }
+  .bg-emerald-700 { background-color: var(--color-emerald-700); }
+
+  /* Text colors */
+  .text-emberGreen-50 { color: var(--color-emberGreen-50); }
+  .text-emberGreen-100 { color: var(--color-emberGreen-100); }
+  .text-emberGreen-300 { color: var(--color-emberGreen-300); }
+  .text-emberGreen-500 { color: var(--color-emberGreen-500); }
+  .text-emberGreen-600 { color: var(--color-emberGreen-600); }
+  .text-emberGreen-700 { color: var(--color-emberGreen-700); }
+  .text-emberGreen-900 { color: var(--color-emberGreen-900); }
+
+  .text-emberBlue-50 { color: var(--color-emberBlue-50); }
+  .text-emberBlue-100 { color: var(--color-emberBlue-100); }
+  .text-emberBlue-300 { color: var(--color-emberBlue-300); }
+  .text-emberBlue-500 { color: var(--color-emberBlue-500); }
+  .text-emberBlue-600 { color: var(--color-emberBlue-600); }
+  .text-emberBlue-700 { color: var(--color-emberBlue-700); }
+  .text-emberBlue-900 { color: var(--color-emberBlue-900); }
+
+  .text-emberGray-50 { color: var(--color-emberGray-50); }
+  .text-emberGray-100 { color: var(--color-emberGray-100); }
+  .text-emberGray-300 { color: var(--color-emberGray-300); }
+  .text-emberGray-500 { color: var(--color-emberGray-500); }
+  .text-emberGray-700 { color: var(--color-emberGray-700); }
+  .text-emberGray-900 { color: var(--color-emberGray-900); }
+
+  .text-emerald-600 { color: var(--color-emerald-600); }
+  .text-emerald-700 { color: var(--color-emerald-700); }
+
+  /* Background gradient */
+  .bg-ember-gradient { background-image: var(--bg-ember-gradient); }
+  .from-emberGreen-500 { --tw-gradient-from: var(--color-emberGreen-500) var(--tw-gradient-from-position); --tw-gradient-to: rgb(34 200 122 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+  .to-emberBlue-500 { --tw-gradient-to: var(--color-emberBlue-500) var(--tw-gradient-to-position); }
+
+  /* Box shadow */
+  .shadow-ember { box-shadow: var(--shadow-ember); }
+
+  /* Height */
+  .h-almost-screen { height: var(--height-almost-screen); }
+
+  /* Text gradient utility */
+  .text-gradient {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(135deg, var(--color-emberGreen-500), var(--color-emberBlue-500));
+  }
+
+  .bg-gradient-hero {
+    background-image: linear-gradient(135deg, var(--color-emberGreen-500), var(--color-emberBlue-500), var(--color-emberGray-500));
+  }
+  
+  .dark .bg-gradient-hero {
+    background-image: linear-gradient(135deg, var(--color-emberGreen-700), var(--color-emberBlue-700), var(--color-emberGray-700));
+  }
+  
+  /* Theme transition utility class */
+  .theme-transition {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+  }
+}
+
+/* Animations and transitions */
+.transition-standard {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover lift effect for cards */
+.hover-lift {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 150, 204, 0.2);
+}
+
+/* Nav link styling */
+.nav-link {
+  position: relative;
+  border-radius: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: rgba(34, 200, 122, 0.06);
+  color: var(--color-emberBlue-500) !important;
+}
+
+/* Active nav item animation */
+.nav-link.active {
+  animation: subtle-pulse 2s infinite;
+}
+
+.nav-link[aria-current="page"] {
+  pointer-events: none;
+}
+
+@keyframes subtle-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.9; }
+}
+
+/* Parallax effect */
+.parallax-bg {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: background-image 0.3s ease, opacity 0.3s ease;
+}
+
+/* Research area cards */
+.research-card {
+  transition: all 0.3s ease;
+  background-size: 100% 100%;
+}
+
+.research-card:hover {
+  background-size: 110% 110%;
+}
+
+/* Selection animation */
+.selected-item {
+  animation: selected-pulse 1s forwards;
+}
+
+@keyframes selected-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+/* Canvas focus styles */
+canvas:focus {
+  outline: none;
+}
+
+canvas {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Fixed background gradient for dark mode */
+.fixed.inset-0.pointer-events-none.z-\[-1\] {
+  transition: opacity 0.3s ease;
+}
+
+.dark .fixed.inset-0.pointer-events-none.z-\[-1\] {
+  opacity: 0.3;
+}
+
+/* Disable default view transition animations */
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: 0.01s;
+}
+
+/* Prevent color flash during navigation */
+::view-transition-group(nav-links) {
+  animation-duration: 0s;
+}
+
+.nav-link::view-transition-old(nav-links),
+.nav-link::view-transition-new(nav-links) {
+  animation: none;
+}
+
+/* Ensure body transitions properly */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

@@ -1,0 +1,48 @@
+# src/content/people.yaml
+- id: shankar
+  name: "S. Shankar Sastry"
+  type: "professor"
+  title: "Professor of Electrical Engineering & Computer Sciences"
+  image: "/images/team/shankar_sastry.jpeg"
+  email: "sastry@eecs.berkeley.edu"
+  url: "https://eecs.berkeley.edu/~sastry"
+  research: "Robotics, Control Systems, Embedded Systems"
+  social:
+    google_scholar: "https://scholar.google.com/citations?user=..."
+
+- id: koushil
+  name: "Koushil Sreenath"
+  type: "professor"
+  title: "Associate Professor of Mechanical Engineering"
+  image: "/images/team/koushil_sreenath.jpeg"
+  email: "koushils@berkeley.edu"
+  url: "https://me.berkeley.edu/people/koushil-sreenath/"
+  research: "Control Theory, Legged Robots, Aerial Vehicles"
+
+- id: haoru
+  name: "Haoru Xue"
+  type: "phd_student"
+  title: "PhD Candidate"
+  image: "/images/team/haoru_xue.png"
+  email: "haoru.xue@berkeley.edu"
+  url: "https://haoruxue.github.io/"
+  research: "Robotics Learning"
+  social:
+    github: "https://github.com/haoruxue"
+
+- id: david
+  name: "David Example"
+  type: "phd_student"
+  title: "PhD Student"
+  image: "/images/team/thomas_kragerud.jpg"
+  email: "david@berkeley.edu"
+  research: "Computer Vision"
+
+- id: erin
+  name: "Erin Example"
+  type: "alumni"
+  title: "Former PhD Student"
+  image: "/images/team/thomas_kragerud.jpg"
+  email: "erin@example.com"
+  destination: "Postdoc at XYZ University"
+  year_graduated: 2022

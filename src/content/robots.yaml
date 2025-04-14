@@ -1,0 +1,20 @@
+- id: cassie
+  name: "Cassie"
+  image: "/images/robots/cassie.jpg"
+  description: "Bipedal robot for dynamic locomotion research"
+  features:
+    - "Powered hip and knee joints"
+    - "Spring-loaded ankles"
+    - "Onboard computing"
+  video_url: "https://www.youtube.com/watch?v=example"
+  project_url: "https://example.com/cassie"
+
+- id: spot
+  name: "Spot"
+  image: "/images/robots/spot.jpg"
+  description: "Quadrupedal robot for multi-terrain mobility"
+  features:
+    - "Onboard navigation"
+    - "Obstacle avoidance"
+    - "Modular payload system"
+  video_url: "https://www.youtube.com/watch?v=example2"
