@@ -12,32 +12,30 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title ? title + ' - EMBER Lab' : 'EMBER Lab'}</title>
-	
-    <link rel="stylesheet" href={import.meta.env.BASE_URL + 'styles/global.css'}>
 
     <!-- Critical preload stylesheet to prevent flash -->
 	<style is:inline>
 		/* Immediate dark mode handling to prevent any flash */
 		:root {
-		  color-scheme: light;
-		  --initial-background: #ffffff;
+		color-scheme: light;
+		--initial-background: #ffffff;
 		}
 		
 		html.dark {
-		  color-scheme: dark;
-		  --initial-background: #111827; /* Tailwind's gray-900 */
+		color-scheme: dark;
+		--initial-background: #111827; /* Tailwind's gray-900 */
 		}
 		
 		html, body {
-		  background-color: var(--initial-background);
+		background-color: var(--initial-background);
 		}
 		
 		/* Disable transitions during page load to prevent flashing */
 		.disable-transitions * {
-		  transition: none !important;
+		transition: none !important;
 		}
-	  </style>
-	
+	</style>
+
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

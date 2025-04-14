@@ -17,6 +17,7 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   build: {
-    assets: 'astro' // This ensures asset names don't have underscores
+    assets: 'astro', // This ensures asset names don't have underscores
+    assetsPrefix: "./"
   }
 });
