@@ -12,143 +12,91 @@ const BASE_URL = import.meta.env.BASE_URL;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title ? title + ' - EMBER Lab' : 'EMBER Lab'}</title>
+    <title>{title ? `${title} – EMBER Lab` : 'EMBER Lab'}</title>
 
-    <!-- Critical preload stylesheet to prevent flash -->
-	<style is:inline>
-		/* Immediate dark mode handling to prevent any flash */
-		:root {
-		color-scheme: light;
-		--initial-background: #ffffff;
-		}
-		
-		html.dark {
-		color-scheme: dark;
-		--initial-background: #111827; /* Tailwind's gray-900 */
-		}
-		
-		html, body {
-		background-color: var(--initial-background);
-		}
-		
-		/* Disable transitions during page load to prevent flashing */
-		.disable-transitions * {
-		transition: none !important;
-		}
-        
-        /* Overlay to prevent flash during transitions */
-        #theme-transition-overlay {
-          position: fixed;
-          inset: 0;
-          z-index: 9999;
-          pointer-events: none;
-          opacity: 0;
-          background-color: var(--initial-background);
-          transition: opacity 0ms;
-        }
-        
-        .transitioning #theme-transition-overlay {
-          opacity: 1;
-        }
-	</style>
+    <!-- 1️⃣ Critical in‑head CSS to guarantee a dark background is present *before* paint -->
+    <style is:inline>
+      :root {
+        /* default light */
+        color-scheme: light;
+        --initial-bg: #ffffff;
+      }
+      html.dark {
+        /* default dark */
+        color-scheme: dark;
+        --initial-bg: #111827; /* Tailwind gray‑900 */
+      }
+      html,body { background: var(--initial-bg); }
+      /* disable all transitions until we re‑enable (prevents flicker) */
+      .disable-transitions * { transition: none !important; }
+    </style>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- fonts, preconnects etc. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-    <ClientRouter fallback="swap"/>
+    <!-- enable SPA view‑transitions -->
+    <ClientRouter fallback="swap" />
 
-    <!-- Theme detection script - runs before page is visible -->
-	<script is:inline>
-		// Apply theme before any content renders
-		(function() {
-		  // Function to get theme preference
-		  const getThemePreference = () => {
-			if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-			  return localStorage.getItem('theme');
-			}
-			return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-		  };
-	
-		  // Apply theme immediately to prevent flash
-		  const theme = getThemePreference();
-		  document.documentElement.classList.toggle('dark', theme === 'dark');
-          
-          // Store theme information in a data attribute for quicker access between pages
-          document.documentElement.setAttribute('data-theme', theme);
-		  
-		  // Add a class to temporarily disable all transitions
-		  document.documentElement.classList.add('disable-transitions');
-		  
-		  // Remove the transitions-disabling class after a short delay
-		  window.addEventListener('DOMContentLoaded', () => {
-			setTimeout(() => {
-			  document.documentElement.classList.remove('disable-transitions');
-			}, 0);
-		  });
-		  
-		  // Make theme toggle available globally
-		  window.toggleTheme = () => {
-			const isDark = document.documentElement.classList.contains('dark');
-            const newTheme = !isDark ? 'dark' : 'light';
-            
-			document.documentElement.classList.toggle('dark', !isDark);
-            document.documentElement.setAttribute('data-theme', newTheme);
-			localStorage.setItem('theme', newTheme);
-		  };
-	
-		  // Watch for system preference changes
-		  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ({ matches }) => {
-			if (!localStorage.getItem('theme')) {
-			  document.documentElement.classList.toggle('dark', matches);
-              document.documentElement.setAttribute('data-theme', matches ? 'dark' : 'light');
-			}
-		  });
-		})();
-	</script>
+    <!-- 2️⃣ Theme script: runs *immediately* and also during every SPA navigation -->
+    <script is:inline>
+      (() => {
+        /* util to pick current theme */
+        const getTheme = () => {
+          const stored = localStorage.getItem('theme');
+          if (stored === 'dark' || stored === 'light') return stored;
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        };
+
+        /* apply theme to a given document (current or incoming) */
+        const applyTheme = (doc) => {
+          const theme = getTheme();
+          doc.documentElement.classList.toggle('dark', theme === 'dark');
+          doc.documentElement.setAttribute('data-theme', theme);
+        };
+
+        /* —— first paint —— */
+        applyTheme(document);
+        document.documentElement.classList.add('disable-transitions');
+        addEventListener('DOMContentLoaded', () => {
+          // re‑enable transitions after first layout
+          document.documentElement.classList.remove('disable-transitions');
+        });
+
+        /* —— SPA navigations —— */
+        document.addEventListener('astro:before-swap', (e) => {
+          // e.newDocument is the *incoming* page; tag it before it renders
+          applyTheme(e.newDocument);
+        });
+
+        /* expose toggle for the UI button */
+        window.toggleTheme = () => {
+          const next = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+          localStorage.setItem('theme', next);
+          applyTheme(document);
+        };
+
+        /* watch system changes only when user hasn’t chosen explicitly */
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (mq) => {
+          if (!localStorage.getItem('theme')) {
+            applyTheme(document);
+          }
+        });
+      })();
+    </script>
   </head>
-  <body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100 font-['Inter',sans-serif] min-h-screen flex flex-col relative theme-transition">
-    <!-- Add this right after your body opening tag -->
-    <div id="theme-transition-overlay"></div>
-    
-    <!-- Background gradient with proper opacity for both themes -->
-    <div class="fixed inset-0 w-full h-full pointer-events-none z-[-1] transition-opacity duration-300">
-      <div class="w-full h-full bg-gradient-to-br from-emberGreen-50/20 via-emberBlue-50/10 to-transparent dark:from-emberGreen-900/10 dark:via-emberBlue-900/5 parallax-bg theme-transition"></div>
-    </div>
-    
+
+  <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 font-['Inter',sans-serif] min-h-screen flex flex-col">
+    <!-- background gradient layer (stays dark) -->
+    <div class="fixed inset-0 -z-10 pointer-events-none bg-gradient-to-br from-emberGreen-50/20 via-emberBlue-50/10 to-transparent dark:from-emberGreen-900/10 dark:via-emberBlue-900/5"></div>
+
     <Navbar />
-    
-    <main class="flex-grow pt-16 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 theme-transition">
+
+    <main class="flex-grow pt-16 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
       <slot />
     </main>
-    
+
     <Footer />
-    
-    <!-- Add this before closing body tag -->
-    <script>
-      // Enhanced view transitions theme handling
-      document.addEventListener('astro:before-swap', () => {
-        // Get current theme
-        const theme = document.documentElement.getAttribute('data-theme');
-        // Add transitioning class to prevent flash
-        document.documentElement.classList.add('transitioning');
-      });
-      
-      document.addEventListener('astro:after-swap', () => {
-        // Get stored theme after page transition
-        const theme = document.documentElement.getAttribute('data-theme') || 
-          localStorage.getItem('theme') || 
-          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        
-        // Apply theme immediately after content swap
-        document.documentElement.classList.toggle('dark', theme === 'dark');
-        document.documentElement.setAttribute('data-theme', theme);
-        
-        // Remove transitioning class after a short delay
-        setTimeout(() => {
-          document.documentElement.classList.remove('transitioning');
-        }, 20);
-      });
-    </script>
   </body>
 </html>
