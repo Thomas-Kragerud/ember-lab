@@ -46,7 +46,7 @@ const BASE_URL = import.meta.env.BASE_URL;
     <ClientRouter fallback="swap"/>
 
     <!-- Theme detection script - runs before page is visible -->
-    <script is:inline>
+    <!-- <script is:inline>
       // Function to get theme preference from localStorage or system
       const getThemePreference = () => {
         if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
@@ -73,7 +73,47 @@ const BASE_URL = import.meta.env.BASE_URL;
           document.documentElement.classList.toggle('dark', matches);
         }
       });
-    </script>
+    </script> -->
+	<script is:inline>
+		// Apply theme before any content renders
+		(function() {
+		  // Function to get theme preference
+		  const getThemePreference = () => {
+			if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+			  return localStorage.getItem('theme');
+			}
+			return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+		  };
+	
+		  // Apply theme immediately to prevent flash
+		  const theme = getThemePreference();
+		  document.documentElement.classList.toggle('dark', theme === 'dark');
+		  
+		  // Add a class to temporarily disable all transitions
+		  document.documentElement.classList.add('disable-transitions');
+		  
+		  // Remove the transitions-disabling class after a short delay
+		  window.addEventListener('DOMContentLoaded', () => {
+			setTimeout(() => {
+			  document.documentElement.classList.remove('disable-transitions');
+			}, 0);
+		  });
+		  
+		  // Make theme toggle available globally
+		  window.toggleTheme = () => {
+			const isDark = document.documentElement.classList.contains('dark');
+			document.documentElement.classList.toggle('dark', !isDark);
+			localStorage.setItem('theme', !isDark ? 'dark' : 'light');
+		  };
+	
+		  // Watch for system preference changes
+		  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ({ matches }) => {
+			if (!localStorage.getItem('theme')) {
+			  document.documentElement.classList.toggle('dark', matches);
+			}
+		  });
+		})();
+	</script>
   </head>
   <body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100 font-['Inter',sans-serif] min-h-screen flex flex-col relative theme-transition">
     <!-- Background gradient with proper opacity for both themes -->
