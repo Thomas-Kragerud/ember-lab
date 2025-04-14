@@ -2,6 +2,7 @@
 import { useEffect, useRef } from 'react';
 // Import Babylon modules
 import { Engine, Scene, ArcRotateCamera, Vector3, HemisphericLight, SceneLoader, Color4, Color3 } from '@babylonjs/core';
+import { MeshBuilder } from '@babylonjs/core';
 import '@babylonjs/loaders/glTF';  // enable GLTF model loader
 
 function BabylonViewer() {
@@ -27,16 +28,35 @@ function BabylonViewer() {
     //scene.ambientColor = new Color3(0.9, 0.9, 0.9); 
     
     // Load 3D model (GLB) from public/models
-    SceneLoader.Append(
-      import.meta.env.BASE_URL + "/models/",
-      "g1_photorealistic_export_2.glb",
-      scene, function () {
+    //const PATH = import.meta.env.BASE_URL + "/models/g1_photorealistic_export_2.glb";
+    const BASE_URL = import.meta.env.BASE_URL;
+    const rootUrl = `${BASE_URL}/models/`;
+    const filename = "g1_photorealistic_export_2.glb";
+    
+    console.log("Loading model from:", rootUrl + filename);
+
+    SceneLoader.Append(rootUrl, filename, scene, function () {
       // Model added to scene. We can adjust camera target or scene as needed.
       // For example, frame the model:
       scene.createDefaultCameraOrLight(true, true, true);
-      scene.activeCamera.alpha += Math.PI / 8;
+     scene.activeCamera.alpha += Math.PI / 8;
     });
-    
+
+    // SceneLoader.ImportMeshAsync("", rootUrl, filename, scene).then(result => {
+    //   // Model loaded successfully
+    //   console.log("Model loaded successfully", result.meshes.length, "meshes");
+      
+    //   // Optional: Adjust camera to focus on the model
+    //   if (result.meshes.length > 0) {
+    //     const modelRootMesh = result.meshes[0];
+    //     camera.target = modelRootMesh.position;
+    //   }
+    // }).catch(error => {
+    //   console.error("Failed to load model:", error);
+    // });
+
+    // cube for debug purposes 
+    //var cube = MeshBuilder.CreateBox("cube", {size: 2}, scene);
     // Render loop
     engine.runRenderLoop(() => {
       scene.render();

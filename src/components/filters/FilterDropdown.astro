@@ -1,0 +1,42 @@
+---
+export interface FilterOption {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  id: string;
+  label: string;
+  options: FilterOption[];
+  defaultValue?: string;
+}
+
+const { id, label, options, defaultValue = options[0]?.value || '' } = Astro.props;
+---
+
+<div class="space-y-1.5">
+  <label for={id} class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+    {label}
+  </label>
+  <div class="relative">
+    <select
+      id={id}
+      class="w-full pl-3 pr-8 py-2 text-sm bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all placeholder-gray-400 dark:placeholder-gray-500 text-gray-900 dark:text-gray-100"
+    >
+      {options.map(option => (
+        <option 
+          value={option.value} 
+          selected={option.value === defaultValue}
+          class="text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
+        >
+          {option.label}
+        </option>
+      ))}
+    </select>
+    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2.5 text-gray-400 dark:text-gray-500">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+      </svg>
+    </div>
+  </div>
+</div>
