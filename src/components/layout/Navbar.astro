@@ -1,6 +1,8 @@
 ---
 // src/components/layout/Navbar.astro
 const currentPath = Astro.url.pathname;
+const BASE_URL = import.meta.env.BASE_URL; 
+
 ---
 
 <nav 
@@ -11,7 +13,7 @@ const currentPath = Astro.url.pathname;
 
   <div class="px-8 py-1 flex items-center justify-between">
     <!-- Logo/Lab Name -->
-    <a href="/" class="flex items-center space-x-3 group">
+    <a href={BASE_URL + "/"} class="flex items-center space-x-3 group">
       <!-- Replace with flame icon (for now using placeholder) -->
       <div class="w-10 h-10 bg-gradient-to-r from-emberGreen-500 to-emberBlue-500 rounded-full flex items-center justify-center shadow-lg transition-standard overflow-hidden">
         <!-- Replace this with actual flame icon -->
@@ -23,32 +25,32 @@ const currentPath = Astro.url.pathname;
     <!-- Navigation Links -->
     <ul class="hidden md:flex space-x-8 text-lg">
       <li>
-        <a href="/" class={`nav-link transition-standard px-4 py-2 ${currentPath === '/' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300'}`}>
+        <a href={BASE_URL + "/"} class={`nav-link transition-standard px-4 py-2 ${currentPath === '/' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300'}`}>
           Home
         </a>
       </li>
       <li>
-        <a href="/people" class={`nav-link transition-standard px-4 py-2 ${currentPath === '/people' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300'}`}>
+        <a href={BASE_URL + "/people"} class={`nav-link transition-standard px-4 py-2 ${currentPath === '/people' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300'}`}>
           People
         </a>
       </li>
       <li>
-        <a href="/publications" class={`nav-link transition-standard px-4 py-2 ${currentPath === '/publications' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300'}`}>
+        <a href={BASE_URL + "/publications"} class={`nav-link transition-standard px-4 py-2 ${currentPath === '/publications' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300'}`}>
           Publications
         </a>
       </li>
       <li>
-        <a href="/research" class={`nav-link transition-standard px-4 py-2 ${currentPath === '/research' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300'}`}>
+        <a href={BASE_URL + "/research"} class={`nav-link transition-standard px-4 py-2 ${currentPath === '/research' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300'}`}>
           Research
         </a>
       </li>
       <li>
-        <a href="/robots" class={`nav-link transition-standard px-4 py-2 ${currentPath === '/robots' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300'}`}>
+        <a href={BASE_URL + "/robots"} class={`nav-link transition-standard px-4 py-2 ${currentPath === '/robots' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300'}`}>
           Robots
         </a>
       </li>
       <li>
-        <a href="/contact" class={`nav-link transition-standard px-4 py-2 ${currentPath === '/contact' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300'}`}>
+        <a href={BASE_URL + "/contact"} class={`nav-link transition-standard px-4 py-2 ${currentPath === '/contact' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300'}`}>
           Contact
         </a>
       </li>
@@ -86,32 +88,32 @@ const currentPath = Astro.url.pathname;
   <div id="mobile-menu" class="hidden md:hidden px-4 py-2 pb-3 bg-white/95 dark:bg-gray-800/95 rounded-b-xl border-t border-gray-100 dark:border-gray-700 theme-transition">
     <ul class="space-y-1">
       <li>
-        <a href="/" class={`block py-2 px-4 rounded-lg ${currentPath === '/' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300 hover:text-emberGreen-500 dark:hover:text-emberGreen-300'}`}>
+        <a href={BASE_URL + "/"} class={`block py-2 px-4 rounded-lg ${currentPath === '/' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300 hover:text-emberGreen-500 dark:hover:text-emberGreen-300'}`}>
           Home
         </a>
       </li>
       <li>
-        <a href="/people" class={`block py-2 px-4 rounded-lg ${currentPath === '/people' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300 hover:text-emberGreen-500 dark:hover:text-emberGreen-300'}`}>
+        <a href={BASE_URL + "/people"} class={`block py-2 px-4 rounded-lg ${currentPath === '/people' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300 hover:text-emberGreen-500 dark:hover:text-emberGreen-300'}`}>
           People
         </a>
       </li>
       <li>
-        <a href="/publications" class={`block py-2 px-4 rounded-lg ${currentPath === '/publications' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300 hover:text-emberGreen-500 dark:hover:text-emberGreen-300'}`}>
+        <a href={BASE_URL + "/publications"} class={`block py-2 px-4 rounded-lg ${currentPath === '/publications' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300 hover:text-emberGreen-500 dark:hover:text-emberGreen-300'}`}>
           Publications
         </a>
       </li>
       <li>
-        <a href="/research" class={`block py-2 px-4 rounded-lg ${currentPath === '/research' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300 hover:text-emberGreen-500 dark:hover:text-emberGreen-300'}`}>
+        <a href={BASE_URL + "/research"} class={`block py-2 px-4 rounded-lg ${currentPath === '/research' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300 hover:text-emberGreen-500 dark:hover:text-emberGreen-300'}`}>
           Research
         </a>
       </li>
       <li>
-        <a href="/robots" class={`block py-2 px-4 rounded-lg ${currentPath === '/robots' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300 hover:text-emberGreen-500 dark:hover:text-emberGreen-300'}`}>
+        <a href={BASE_URL + "/robots"} class={`block py-2 px-4 rounded-lg ${currentPath === '/robots' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300 hover:text-emberGreen-500 dark:hover:text-emberGreen-300'}`}>
           Robots
         </a>
       </li>
       <li>
-        <a href="/contact" class={`block py-2 px-4 rounded-lg ${currentPath === '/contact' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300 hover:text-emberGreen-500 dark:hover:text-emberGreen-300'}`}>
+        <a href={BASE_URL + "/contact"} class={`block py-2 px-4 rounded-lg ${currentPath === '/contact' ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300 hover:text-emberGreen-500 dark:hover:text-emberGreen-300'}`}>
           Contact
         </a>
       </li>
