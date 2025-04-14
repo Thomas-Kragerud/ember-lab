@@ -6,7 +6,6 @@ import { ClientRouter } from 'astro:transitions';
 
 const { title } = Astro.props;
 const BASE_URL = import.meta.env.BASE_URL;
-
 ---
 
 <html lang="en" class="scroll-smooth">
@@ -36,8 +35,22 @@ const BASE_URL = import.meta.env.BASE_URL;
 		.disable-transitions * {
 		transition: none !important;
 		}
+        
+        /* Overlay to prevent flash during transitions */
+        #theme-transition-overlay {
+          position: fixed;
+          inset: 0;
+          z-index: 9999;
+          pointer-events: none;
+          opacity: 0;
+          background-color: var(--initial-background);
+          transition: opacity 0ms;
+        }
+        
+        .transitioning #theme-transition-overlay {
+          opacity: 1;
+        }
 	</style>
-
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,34 +59,6 @@ const BASE_URL = import.meta.env.BASE_URL;
     <ClientRouter fallback="swap"/>
 
     <!-- Theme detection script - runs before page is visible -->
-    <!-- <script is:inline>
-      // Function to get theme preference from localStorage or system
-      const getThemePreference = () => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          return localStorage.getItem('theme');
-        }
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      };
-
-      // Apply theme immediately to prevent flash
-      const theme = getThemePreference();
-      document.documentElement.classList.toggle('dark', theme === 'dark');
-      
-      // Make theme toggle available globally
-      window.toggleTheme = () => {
-		const isDark = document.documentElement.classList.contains('dark');
-		document.documentElement.classList.toggle('dark', !isDark);
-
-		localStorage.setItem('theme', !isDark ? 'dark' : 'light');
-		};
-
-      // Watch for system preference changes
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ({ matches }) => {
-        if (!localStorage.getItem('theme')) {
-          document.documentElement.classList.toggle('dark', matches);
-        }
-      });
-    </script> -->
 	<script is:inline>
 		// Apply theme before any content renders
 		(function() {
@@ -88,6 +73,9 @@ const BASE_URL = import.meta.env.BASE_URL;
 		  // Apply theme immediately to prevent flash
 		  const theme = getThemePreference();
 		  document.documentElement.classList.toggle('dark', theme === 'dark');
+          
+          // Store theme information in a data attribute for quicker access between pages
+          document.documentElement.setAttribute('data-theme', theme);
 		  
 		  // Add a class to temporarily disable all transitions
 		  document.documentElement.classList.add('disable-transitions');
@@ -102,20 +90,27 @@ const BASE_URL = import.meta.env.BASE_URL;
 		  // Make theme toggle available globally
 		  window.toggleTheme = () => {
 			const isDark = document.documentElement.classList.contains('dark');
+            const newTheme = !isDark ? 'dark' : 'light';
+            
 			document.documentElement.classList.toggle('dark', !isDark);
-			localStorage.setItem('theme', !isDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', newTheme);
+			localStorage.setItem('theme', newTheme);
 		  };
 	
 		  // Watch for system preference changes
 		  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ({ matches }) => {
 			if (!localStorage.getItem('theme')) {
 			  document.documentElement.classList.toggle('dark', matches);
+              document.documentElement.setAttribute('data-theme', matches ? 'dark' : 'light');
 			}
 		  });
 		})();
 	</script>
   </head>
   <body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100 font-['Inter',sans-serif] min-h-screen flex flex-col relative theme-transition">
+    <!-- Add this right after your body opening tag -->
+    <div id="theme-transition-overlay"></div>
+    
     <!-- Background gradient with proper opacity for both themes -->
     <div class="fixed inset-0 w-full h-full pointer-events-none z-[-1] transition-opacity duration-300">
       <div class="w-full h-full bg-gradient-to-br from-emberGreen-50/20 via-emberBlue-50/10 to-transparent dark:from-emberGreen-900/10 dark:via-emberBlue-900/5 parallax-bg theme-transition"></div>
@@ -129,15 +124,30 @@ const BASE_URL = import.meta.env.BASE_URL;
     
     <Footer />
     
-    <!-- Handle theme persistence during view transitions -->
+    <!-- Add this before closing body tag -->
     <script>
+      // Enhanced view transitions theme handling
+      document.addEventListener('astro:before-swap', () => {
+        // Get current theme
+        const theme = document.documentElement.getAttribute('data-theme');
+        // Add transitioning class to prevent flash
+        document.documentElement.classList.add('transitioning');
+      });
+      
       document.addEventListener('astro:after-swap', () => {
-        // Get the stored theme after a page transition
-        const theme = localStorage.getItem('theme') || 
+        // Get stored theme after page transition
+        const theme = document.documentElement.getAttribute('data-theme') || 
+          localStorage.getItem('theme') || 
           (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         
-        // Apply the theme after the new page content is swapped in
+        // Apply theme immediately after content swap
         document.documentElement.classList.toggle('dark', theme === 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+        
+        // Remove transitioning class after a short delay
+        setTimeout(() => {
+          document.documentElement.classList.remove('transitioning');
+        }, 20);
       });
     </script>
   </body>

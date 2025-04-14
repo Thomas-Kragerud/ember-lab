@@ -14,7 +14,7 @@ export default defineConfig({
   outDir: "./docs",
 
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
   },
   build: {
     assets: 'astro', // This ensures asset names don't have underscores
