@@ -7,7 +7,11 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://Thomas-Kragerud.github.io', // Replace with your GitHub username
+  base: '/ember-lab',                       // Replace with your repository name
+  output: "static",
   integrations: [react()],
+  outDir: "./docs",
 
   vite: {
     plugins: [tailwindcss()]
