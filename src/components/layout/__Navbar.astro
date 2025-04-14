@@ -1,0 +1,251 @@
+---
+// src/components/layout/Navbar.astro
+const currentPath = Astro.url.pathname;
+const BASE_URL = import.meta.env.BASE_URL; 
+
+// Function to check if a path is active
+function isActive(path) {
+  if (path === BASE_URL + "/") {
+    return currentPath === BASE_URL + "/" || currentPath === BASE_URL;
+  }
+  return currentPath.startsWith(path);
+}
+---
+
+<nav 
+  id="navbar" 
+  class="fixed top-2 left-0 z-50 w-full max-w-6xl mx-auto left-1/2 -translate-x-1/2 bg-white/80 backdrop-blur-md border border-gray-100 dark:border-gray-700 dark:bg-gray-800/80 rounded-xl shadow-ember theme-transition" 
+  transition:persist 
+  transition:animate="none">
+
+  <div class="px-8 py-1 flex items-center justify-between">
+    <!-- Logo/Lab Name -->
+    <a href={BASE_URL + "/"} class="flex items-center space-x-3 group">
+      <!-- Replace with flame icon (for now using placeholder) -->
+      <div class="w-10 h-10 bg-gradient-to-r from-emberGreen-500 to-emberBlue-500 rounded-full flex items-center justify-center shadow-lg transition-standard overflow-hidden">
+        <!-- Replace this with actual flame icon -->
+        <span class="text-white font-bold">E</span>
+      </div>
+      <span class="text-xl font-bold text-gradient">EMBER Lab</span>
+    </a>
+    
+    <!-- Navigation Links -->
+    <ul class="hidden md:flex space-x-8 text-lg">
+      <li>
+        <a href={BASE_URL + "/"} class={`nav-link transition-standard px-4 py-2 ${isActive(BASE_URL + "/") ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300'}`}>
+          Home
+        </a>
+      </li>
+      <li>
+        <a href={BASE_URL + "/people"} class={`nav-link transition-standard px-4 py-2 ${isActive(BASE_URL + "/people") ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300'}`}>
+          People
+        </a>
+      </li>
+      <li>
+        <a href={BASE_URL + "/publications"} class={`nav-link transition-standard px-4 py-2 ${isActive(BASE_URL + "/publications") ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300'}`}>
+          Publications
+        </a>
+      </li>
+      <li>
+        <a href={BASE_URL + "/research"} class={`nav-link transition-standard px-4 py-2 ${isActive(BASE_URL + "/research") ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300'}`}>
+          Research
+        </a>
+      </li>
+      <li>
+        <a href={BASE_URL + "/robots"} class={`nav-link transition-standard px-4 py-2 ${isActive(BASE_URL + "/robots") ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300'}`}>
+          Robots
+        </a>
+      </li>
+      <li>
+        <a href={BASE_URL + "/contact"} class={`nav-link transition-standard px-4 py-2 ${isActive(BASE_URL + "/contact") ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300'}`}>
+          Contact
+        </a>
+      </li>
+    </ul>
+    
+    <div class="flex items-center space-x-2">
+      <!-- Dark Mode Toggle - Fixed with window prefix -->
+      <button 
+        id="theme-toggle"
+        class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-standard"
+        aria-label="Toggle dark mode"
+        onclick="window.toggleTheme()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden dark:block text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 block dark:hidden text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+      </button>
+    
+      <!-- Mobile menu button -->
+      <button 
+        id="mobile-menu-button" 
+        class="md:hidden p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+        aria-label="Toggle mobile menu"
+        aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Menu - Hidden by default -->
+  <div id="mobile-menu" class="hidden md:hidden px-4 py-2 pb-3 bg-white/95 dark:bg-gray-800/95 rounded-b-xl border-t border-gray-100 dark:border-gray-700 theme-transition">
+    <ul class="space-y-1">
+      <li>
+        <a href={BASE_URL + "/"} class={`block py-2 px-4 rounded-lg ${isActive(BASE_URL + "/") ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300 hover:text-emberGreen-500 dark:hover:text-emberGreen-300'}`}>
+          Home
+        </a>
+      </li>
+      <li>
+        <a href={BASE_URL + "/people"} class={`block py-2 px-4 rounded-lg ${isActive(BASE_URL + "/people") ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300 hover:text-emberGreen-500 dark:hover:text-emberGreen-300'}`}>
+          People
+        </a>
+      </li>
+      <li>
+        <a href={BASE_URL + "/publications"} class={`block py-2 px-4 rounded-lg ${isActive(BASE_URL + "/publications") ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300 hover:text-emberGreen-500 dark:hover:text-emberGreen-300'}`}>
+          Publications
+        </a>
+      </li>
+      <li>
+        <a href={BASE_URL + "/research"} class={`block py-2 px-4 rounded-lg ${isActive(BASE_URL + "/research") ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300 hover:text-emberGreen-500 dark:hover:text-emberGreen-300'}`}>
+          Research
+        </a>
+      </li>
+      <li>
+        <a href={BASE_URL + "/robots"} class={`block py-2 px-4 rounded-lg ${isActive(BASE_URL + "/robots") ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300 hover:text-emberGreen-500 dark:hover:text-emberGreen-300'}`}>
+          Robots
+        </a>
+      </li>
+      <li>
+        <a href={BASE_URL + "/contact"} class={`block py-2 px-4 rounded-lg ${isActive(BASE_URL + "/contact") ? 'text-emberGreen-500 dark:text-emberGreen-300' : 'text-gray-600 dark:text-gray-300 hover:text-emberGreen-500 dark:hover:text-emberGreen-300'}`}>
+          Contact
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<script>
+  // This function handles all mobile menu functionality
+  function setupMobileMenu() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (mobileMenuButton && mobileMenu) {
+      // Remove any existing event listeners to prevent duplicates
+      const newMobileMenuButton = mobileMenuButton.cloneNode(true);
+      mobileMenuButton.parentNode.replaceChild(newMobileMenuButton, mobileMenuButton);
+      
+      // Add fresh event listener
+      newMobileMenuButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isExpanded = newMobileMenuButton.getAttribute('aria-expanded') === 'true';
+        
+        mobileMenu.classList.toggle('hidden');
+        newMobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+      });
+    }
+  }
+
+  // Enhanced navigation script for active state
+  function updateActiveNavigation() {
+    const currentPath = window.location.pathname;
+    const BASE_URL = import.meta.env.BASE_URL || '/ember-lab';
+    
+    // Function to check if a path is active
+    function isActive(path) {
+      if (path === BASE_URL + "/" || path === BASE_URL) {
+        return currentPath === BASE_URL + "/" || currentPath === BASE_URL;
+      }
+      return currentPath.startsWith(path);
+    }
+    
+    // Remove active class from all links
+    document.querySelectorAll('#navbar a').forEach(link => {
+      const href = link.getAttribute('href');
+      
+      // Remove existing active classes
+      link.classList.remove('text-emberGreen-500', 'dark:text-emberGreen-300');
+      link.classList.add('text-gray-600', 'dark:text-gray-300');
+      
+      // Add active classes if current path matches
+      if (href && isActive(href)) {
+        link.classList.remove('text-gray-600', 'dark:text-gray-300');
+        link.classList.add('text-emberGreen-500', 'dark:text-emberGreen-300');
+      }
+    });
+  }
+
+  // Setup document-level click handler for closing menu when clicking outside
+  function setupDocumentClickHandler() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    document.addEventListener('click', (e) => {
+      if (mobileMenu && mobileMenuButton && 
+          !mobileMenu.contains(e.target) && 
+          !mobileMenuButton.contains(e.target)) {
+        mobileMenu.classList.add('hidden');
+        mobileMenuButton.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  // Setup escape key handler
+  function setupKeyboardHandler() {
+    document.addEventListener('keydown', (e) => {
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      if (e.key === 'Escape' && 
+          mobileMenuButton && 
+          mobileMenu && 
+          mobileMenuButton.getAttribute('aria-expanded') === 'true') {
+        mobileMenu.classList.add('hidden');
+        mobileMenuButton.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  // Setup click handlers for mobile menu links
+  function setupMobileMenuLinks() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    
+    if (mobileMenu && mobileMenuButton) {
+      const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+      mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          mobileMenuButton.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  }
+
+  // Initialize all functionality
+  function initializeNavbar() {
+    setupMobileMenu();
+    updateActiveNavigation();
+    setupMobileMenuLinks();
+    
+    // These only need to be set up once
+    if (!window.navbarInitialized) {
+      setupDocumentClickHandler();
+      setupKeyboardHandler();
+      window.navbarInitialized = true;
+    }
+  }
+
+  // Run on initial page load
+  document.addEventListener('DOMContentLoaded', initializeNavbar);
+  
+  // Run after each navigation with view transitions
+  document.addEventListener('astro:page-load', initializeNavbar);
+  
+  // Run after view transitions
+  document.addEventListener('astro:after-swap', updateActiveNavigation);
+</script>

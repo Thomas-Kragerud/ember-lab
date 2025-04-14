@@ -27,7 +27,10 @@ function BabylonViewer() {
     //scene.ambientColor = new Color3(0.9, 0.9, 0.9); 
     
     // Load 3D model (GLB) from public/models
-    SceneLoader.Append("/models/", "g1_photorealistic_export_2.glb", scene, function () {
+    SceneLoader.Append(
+      import.meta.env.BASE_URL + "/models/",
+      "g1_photorealistic_export_2.glb",
+      scene, function () {
       // Model added to scene. We can adjust camera target or scene as needed.
       // For example, frame the model:
       scene.createDefaultCameraOrLight(true, true, true);

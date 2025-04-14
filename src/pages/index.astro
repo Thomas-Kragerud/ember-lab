@@ -29,6 +29,8 @@ const allResearchAreas = await getCollection('research', entry =>
   !entry.id.startsWith('_') && entry.data.featured === true
 );
 const featuredAreas = allResearchAreas.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+
+const BASE_URL = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout title={title}>
@@ -50,7 +52,7 @@ const featuredAreas = allResearchAreas.sort((a, b) => (a.data.order || 99) - (b.
       reinforcement learning, and embodied AI for next-generation robotics.
     </p>
     <div class="mt-8">
-      <a href="/research" class="px-8 py-4 bg-gradient-to-r from-emberGreen-500 to-emberBlue-500 hover:brightness-110 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 inline-block hover:-translate-y-1">
+      <a href={BASE_URL + "/research"} class="px-8 py-4 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 inline-block hover:-translate-y-1 bg-ember-gradient">
         Our Research
       </a>
     </div>
@@ -117,7 +119,7 @@ const featuredAreas = allResearchAreas.sort((a, b) => (a.data.order || 99) - (b.
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-center justify-items-center">
       {sponsors.map((sponsor) => (
         <a href={sponsor.data.url} target="_blank" rel="noopener" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center w-full h-32">
-          <img src={sponsor.data.logo} alt={sponsor.data.name} class="max-h-16 max-w-full object-contain filter dark:brightness-90 dark:contrast-125" />
+          <img src={BASE_URL + sponsor.data.logo} alt={sponsor.data.name} class="max-h-16 max-w-full object-contain filter dark:brightness-90 dark:contrast-125" />
         </a>
       ))}
       
