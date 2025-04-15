@@ -31,15 +31,16 @@ function BabylonViewer() {
     //const PATH = import.meta.env.BASE_URL + "/models/g1_photorealistic_export_2.glb";
     const BASE_URL = import.meta.env.BASE_URL;
     const rootUrl = `${BASE_URL}/models/`;
-    const filename = "g1_photorealistic_export_2.glb";
+    //const filename = "g1_photorealistic_export_2.glb";
+    const filename = "robot_dog_unitree_go2.glb"
     
     console.log("Loading model from:", rootUrl + filename);
 
     SceneLoader.Append(rootUrl, filename, scene, function () {
       // Model added to scene. We can adjust camera target or scene as needed.
       // For example, frame the model:
-      scene.createDefaultCameraOrLight(true, true, true);
-     scene.activeCamera.alpha += Math.PI / 8;
+      //scene.createDefaultCameraOrLight(true, true, true);
+      //scene.activeCamera.alpha += Math.PI / 8;
     });
 
     // SceneLoader.ImportMeshAsync("", rootUrl, filename, scene).then(result => {
@@ -56,7 +57,7 @@ function BabylonViewer() {
     // });
 
     // cube for debug purposes 
-    //var cube = MeshBuilder.CreateBox("cube", {size: 2}, scene);
+    var cube = MeshBuilder.CreateBox("cube", {size: 0.1}, scene);
     // Render loop
     engine.runRenderLoop(() => {
       scene.render();
