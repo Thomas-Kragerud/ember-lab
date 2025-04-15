@@ -1,0 +1,115 @@
+---
+// src/components/cards/NewsCard.astro
+// interface Props {
+//   title: string;
+//   date: string;
+//   content: string;
+//   summary?: string;
+// }
+import { render } from 'astro:content';
+
+const { title, date, content, summary } = Astro.props;
+
+let NewsContent;
+if (content && content.body) {
+  const { Content } = await render(content);
+  NewsContent = Content;
+}
+---
+
+<div class="news-card ">
+  <!-- Card preview that shows on the page -->
+  <button class="card-trigger w-full h-full text-left p-6 rounded-lg bg-gray-50 dark:bg-gray-700 shadow-sm mb-6 border-0 transform translate-y-0 hover-lift dark:border-0 dark:hover:bg-gray-700 transition-all duration-200">
+    <!-- <h3 class="text-2xl font-bold mb-2 text-gray-800 dark:text-whit">{title}</h3> -->
+    <h3 class="text-2xl font-bold mb-2 text-gray-800 dark:text-white">{title}</h3>
+
+    <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+      {new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+    </p>
+    {summary && <p class="text-gray-700 dark:text-gray-200">{summary}</p>}
+    <a class="inline-flex items-center mt-4 text-emberBlue-600 hover:text-emberBlue-700 dark:text-emberBlue-300 dark:hover:text-emberBlue-200">
+      Read more
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+      </svg>
+    </a>
+  </button>
+  
+  <!-- Popup that appears when the card is clicked -->
+  <div class="news-popup fixed inset-0 z-50 flex items-center justify-center bg-emberGray-900/30 dark:bg-emberGray-900/40 backdrop-blur-sm p-4 opacity-0 pointer-events-none transition-all duration-300">
+    <div class="popup-content relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-lg shadow-ember border border-gray-100 dark:border-gray-700 p-6 transition-standard">
+      <button class="popup-close absolute top-3 right-3 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+        <span class="sr-only">Close</span>
+      </button>
+      <article class="prose dark:prose-invert prose-img:rounded-lg prose-headings:font-bold prose-a:text-emberBlue-500 max-w-none">
+        <!-- <h2>{title}</h2> -->
+        <p class="text-sm text-gray-500 dark:text-gray-400 -mt-4">
+          {new Date(date).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })}
+        </p>
+        <!-- <div 
+          class="prose prose-lg dark:prose-invert
+          max-w-none
+          prose-headings:text-emberBlue-700 dark:prose-headings:text-emberBlue-300
+          prose-a:text-emberGreen-600 dark:prose-a:text-emberGreen-300 prose-a:no-underline hover:prose-a:text-emberGreen-500
+          prose-strong:text-emberBlue-600 dark:prose-strong:text-emberBlue-400
+          prose-hr:border-emberGray-300 dark:prose-hr:border-emberGray-700
+          prose-ol:list-decimal prose-ul:list-disc
+          prose-li:marker:text-emberBlue-500 dark:prose-li:marker:text-emberBlue-400
+          prose-img:rounded-lg prose-img:shadow-md"
+        > -->
+        <div>
+          {NewsContent && <NewsContent />}   
+        </div>
+             <!-- <div set:html={content} /> -->
+         <!-- update this here with the rendered content  -->
+      </article>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Find all news card components on the page
+  const newsCards = document.querySelectorAll('.news-card');
+  
+  newsCards.forEach((card) => {
+    const trigger = card.querySelector('.card-trigger');
+    const popup = card.querySelector('.news-popup');
+    const closeBtn = card.querySelector('.popup-close');
+    
+    // Open popup when card is clicked
+    trigger?.addEventListener('click', () => {
+      popup?.classList.remove('opacity-0', 'pointer-events-none');
+      document.body.style.overflow = 'hidden'; // Prevent scrolling behind popup
+    });
+    
+    // Close popup when close button is clicked
+    closeBtn?.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent event bubbling
+      popup?.classList.add('opacity-0', 'pointer-events-none');
+      document.body.style.overflow = ''; // Re-enable scrolling
+    });
+    
+    // Close popup when clicking outside the content
+    popup?.addEventListener('click', (e) => {
+      if (e.target === popup) {
+        popup.classList.add('opacity-0', 'pointer-events-none');
+        document.body.style.overflow = '';
+      }
+    });
+    
+    // Close popup with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !popup?.classList.contains('pointer-events-none')) {
+        popup?.classList.add('opacity-0', 'pointer-events-none');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+</script>

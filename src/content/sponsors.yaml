@@ -1,10 +1,15 @@
 # src/content/sponsors.yaml
 - id: nsf
   name: "National Science Foundation"
-  logo: "/images/nsf_logo.png"
+  logo: "/images/sponsors/nsf_logo.png"
   url: "https://nsf.gov"
 
 - id: bair
   name: "Berkeley AI Research"
-  logo: "/images/bair_logo.png"
+  logo: "/images/sponsors/bair_logo.png"
   url: "https://bair.berkeley.edu"
+
+- id: darpa
+  name: "DARPA"
+  logo: "/images/sponsors/DARPA_Logo_2010.png"
+  url: "https://www.darpa.mil/"

@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import BabylonViewer from "@components/BabylonViewer";
-//import ResearchCard from "@components/ResearchCard.astro";
+import ResearchCard from "@components/cards/ResearchCard.astro";
+import NewsCard from "@components/cards/NewsCard.astro";
 import { getCollection } from 'astro:content';
 
 const title = "Home";
@@ -13,16 +14,16 @@ const sponsors = await getCollection('sponsors');
 const allNewsPosts = await getCollection('news');
 
 // Process posts and sort by date
-const postsArray = allNewsPosts
+const sortedPosts = allNewsPosts
   .map(post => ({
     ...post.data,
-    slug: post.slug,
-    // Convert string date to Date object if needed
+    slug: post.data.slug, // Access slug from post.data, not post
     date: post.data.date ? new Date(post.data.date) : new Date(0)
   }))
   .sort((a, b) => b.date.getTime() - a.date.getTime());
 
-const latestNews = postsArray.slice(0, 2);
+const latestNews = sortedPosts.slice(0, 2);
+const news = latestNews;
 
 // Get featured research areas 
 const allResearchAreas = await getCollection('research', entry => 
@@ -63,18 +64,17 @@ const BASE_URL = import.meta.env.BASE_URL;
 </section>
 
   <!-- Research Areas -->
-  <section class="py-16">
-    <!-- Same content as before -->
-    <h2 class="text-3xl font-semibold mb-8 text-gray-800 dark:text-white text-center">Research Areas</h2>
+  <section class="py-12">
+    <h2 class="text-3xl font-semibold mb-6 text-gray-800 dark:text-white text-center">Research Areas</h2>
     
-    <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {featuredAreas.map(area => (
         <ResearchCard area={area} isDetailed={false} />
       ))}
-    </div> -->
+    </div>
     
-    <div class="mt-10 text-center">
-      <a href="/research" class="px-6 py-3 bg-emberBlue-500 hover:bg-emberBlue-600 text-white rounded-lg transition-standard inline-flex items-center">
+    <div class="mt-8 text-center">
+      <a href={BASE_URL + "/research"} class="px-6 py-3 bg-emberBlue-500 hover:bg-emberBlue-600 text-white rounded-lg transition-all duration-300 inline-flex items-center hover:-translate-y-1">
         Explore All Research
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -83,31 +83,68 @@ const BASE_URL = import.meta.env.BASE_URL;
     </div>
   </section>
 
-  <!-- Latest News -->
-  <section class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 my-12">
-    <!-- Same content as before -->
+
+  <!-- <section class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 my-12">
     <h2 class="text-3xl font-semibold mb-8 text-gray-800 dark:text-white">Latest News</h2>
-    {latestNews.map((post) => (
-      <article class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-sm mb-6 transform translate-y-0 hover-lift">
-        <h3 class="text-2xl font-bold mb-2 text-gray-800 dark:text-white">{post.title}</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
-          {post.date.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})}
-        </p>
-        <p class="text-gray-700 dark:text-gray-200">{post.summary}</p>
-        <a href={`/news/${post.slug || '#'}`} class="inline-flex items-center mt-4 text-emberBlue-600 hover:text-emberBlue-700 dark:text-emberBlue-300 dark:hover:text-emberBlue-200">
-          Read more
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </a>
-      </article>
-    ))}
-    <div class="text-center mt-8">
-      <a href="/news" class="px-5 py-2 bg-emberBlue-500 hover:bg-emberBlue-600 text-white rounded-lg transition-standard inline-block hover:-translate-y-1">
+    
+    {news.map((post) => {
+    // const foundPost = allNewsPosts.find(p => p.slug === post.slug);
+    // console.log(`For post with slug ${post.slug}, found: ${foundPost ? foundPost.slug : 'nothing'}`);
+    return (
+      <NewsCard 
+        title={post.title} 
+        date={post.date.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})}
+        summary={post.summary}
+        content={allNewsPosts.find(p => p.data.slug === post.slug)}
+      />
+    );
+  })}
+    
+    <div class="mt-8 text-center">
+      <a href={BASE_URL + "/news"} class="px-6 py-3 bg-emberBlue-500 hover:bg-emberBlue-600 text-white rounded-lg transition-all duration-300 inline-flex items-center hover:-translate-y-1">
         View All News
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
       </a>
     </div>
+  
+  </section> -->
+  <section class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 my-12" id="news-section">
+    <h2 class="text-3xl font-semibold mb-8 text-gray-800 dark:text-white">Latest News</h2>
+    
+    <div id="news-container">
+      {sortedPosts.slice(0, 2).map((post) => (
+        <NewsCard 
+          title={post.title} 
+          date={post.date.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})}
+          summary={post.summary}
+          content={allNewsPosts.find(p => p.data.slug === post.slug)}
+        />
+      ))}
+    </div>
+    
+    <div class="hidden" id="expanded-news-container">
+      {sortedPosts.map((post) => (
+        <NewsCard 
+          title={post.title} 
+          date={post.date.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})}
+          summary={post.summary}
+          content={allNewsPosts.find(p => p.data.slug === post.slug)}
+        />
+      ))}
+    </div>
+    
+    <div class="mt-8 text-center">
+      <button id="toggle-news-btn" class="px-6 py-3 bg-emberBlue-500 hover:bg-emberBlue-600 text-white rounded-lg transition-all duration-300 inline-flex items-center hover:-translate-y-1">
+        View All News
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+      </button>
+    </div>
   </section>
+
 
   <!-- Sponsors -->
   <section class="py-16">
@@ -116,17 +153,60 @@ const BASE_URL = import.meta.env.BASE_URL;
       We're grateful for the support of these organizations that make our research possible.
     </p>
     
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-center justify-items-center">
-      {sponsors.map((sponsor) => (
-        <a href={sponsor.data.url} target="_blank" rel="noopener" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center w-full h-32">
-          <img src={BASE_URL + sponsor.data.logo} alt={sponsor.data.name} class="max-h-16 max-w-full object-contain filter dark:brightness-90 dark:contrast-125" />
-        </a>
-      ))}
-      
-      <!-- You can remove this if DARPA is now included in your sponsors.yaml -->
-      <!-- <a href="https://www.darpa.mil/" target="_blank" rel="noopener" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center w-full h-32">
-        <img src="/sponsors/darpa-logo.png" alt="DARPA" class="max-h-16 max-w-full object-contain filter dark:brightness-90 dark:contrast-125" />
-      </a> -->
+    <div class="relative w-full">
+      <div class="flex overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory scroll-smooth">
+        <div class="flex flex-nowrap mx-auto">
+          {sponsors.map((sponsor) => (
+            <div class="inline-block px-3 snap-center">
+              <a href={sponsor.data.url} target="_blank" rel="noopener" 
+                class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl 
+                        transition-all duration-300 flex items-center justify-center 
+                        w-60 h-32">
+                <img src={BASE_URL + sponsor.data.logo} alt={sponsor.data.name} 
+                    class="max-h-16 max-w-full object-contain filter dark:brightness-90 dark:contrast-125" />
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>
+
+
+<script>
+  // Client-side JavaScript for news toggle functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleButton = document.getElementById('toggle-news-btn');
+    const newsContainer = document.getElementById('news-container');
+    const expandedNewsContainer = document.getElementById('expanded-news-container');
+    
+    let expanded = false;
+    
+    toggleButton.addEventListener('click', () => {
+      expanded = !expanded;
+      
+      if (expanded) {
+        // Show all news
+        newsContainer.classList.add('hidden');
+        expandedNewsContainer.classList.remove('hidden');
+        toggleButton.innerHTML = `
+          Show Less
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd" />
+          </svg>
+        `;
+      } else {
+        // Show only latest news
+        newsContainer.classList.remove('hidden');
+        expandedNewsContainer.classList.add('hidden');
+        toggleButton.innerHTML = `
+          View All News
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        `;
+      }
+    });
+  });
+</script>

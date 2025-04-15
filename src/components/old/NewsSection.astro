@@ -1,0 +1,172 @@
+---
+// NewsSection.astro
+import { getCollection } from 'astro:content';
+import NewsCard from './cards/NewsCard.astro';
+import NewsModal from './NewsModal.astro';
+
+// Accept defaultCount as a prop with a default value of 2
+const { defaultCount = 2 } = Astro.props;
+
+// Load news posts from content collection
+const allNewsPosts = await getCollection('news');
+
+// Process posts and sort by date
+const postsArray = allNewsPosts
+  .map(post => ({
+    ...post.data,
+    slug: post.slug,
+    date: post.data.date ? new Date(post.data.date) : new Date(0)
+  }))
+  .sort((a, b) => b.date.getTime() - a.date.getTime());
+
+// Initial posts to display
+const initialPosts = postsArray.slice(0, defaultCount);
+const remainingPosts = postsArray.slice(defaultCount);
+---
+
+<section class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 my-12">
+  <h2 class="text-3xl font-semibold mb-8 text-gray-800 dark:text-white">Latest News</h2>
+  
+  <!-- Initial visible posts -->
+  <div id="news-initial-container">
+    {initialPosts.map(post => (
+      <NewsCard post={post} />
+    ))}
+  </div>
+  
+  <!-- Additional posts (hidden by default) -->
+  <div id="news-expanded-container" style="display: none;">
+    {remainingPosts.map(post => (
+      <NewsCard post={post} />
+    ))}
+  </div>
+  
+  <!-- View All / Show Less button -->
+  <div class="text-center mt-8">
+    <button 
+      id="news-toggle-btn"
+      class="px-5 py-2 bg-emberBlue-500 hover:bg-emberBlue-600 text-white rounded-lg transition-all duration-300 inline-block hover:-translate-y-1"
+      data-state="collapsed"
+    >
+      View All News
+    </button>
+  </div>
+  
+  <!-- Include the modal for article popups -->
+  <NewsModal />
+</section>
+
+<script>
+  // Initialize the news functionality
+  function initNews() {
+    // Get DOM elements
+    const modal = document.getElementById('news-modal');
+    const closeBtn = document.getElementById('news-modal-close');
+    const expandedContainer = document.getElementById('news-expanded-container');
+    const toggleBtn = document.getElementById('news-toggle-btn');
+    const allNewsCards = document.querySelectorAll('.news-card');
+    
+    // Function to show the modal with a specific article
+    function showNewsModal(slug) {
+      if (!modal) return;
+      
+      // Hide all content containers
+      document.querySelectorAll('.news-content-container').forEach(container => {
+        container.classList.add('hidden');
+      });
+      
+      // Show the selected content
+      const contentContainer = document.getElementById(`news-content-${slug}`);
+      if (contentContainer) {
+        contentContainer.classList.remove('hidden');
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+      }
+    }
+    
+    // Function to close the modal
+    function closeNewsModal() {
+      if (!modal) return;
+      
+      modal.style.display = 'none';
+      document.body.style.overflow = ''; // Re-enable scrolling
+    }
+    
+    // Function to toggle between showing initial posts and all posts
+    function toggleNews() {
+      if (!expandedContainer || !toggleBtn) return;
+      
+      const isExpanded = toggleBtn.getAttribute('data-state') === 'expanded';
+      
+      if (isExpanded) {
+        // Collapse
+        expandedContainer.style.display = 'none';
+        toggleBtn.textContent = 'View All News';
+        toggleBtn.setAttribute('data-state', 'collapsed');
+      } else {
+        // Expand
+        expandedContainer.style.display = 'block';
+        toggleBtn.textContent = 'Show Less';
+        toggleBtn.setAttribute('data-state', 'expanded');
+      }
+    }
+    
+    // Add click event listeners to all news cards
+    allNewsCards.forEach(card => {
+      // Handle card click
+      card.addEventListener('click', (e) => {
+        // If the click is on the "Read more" button, it's handled separately
+        if (!e.target.closest('.news-read-more')) {
+          const slug = card.dataset.newsSlug;
+          if (slug) {
+            showNewsModal(slug);
+          }
+        }
+      });
+      
+      // Handle "Read more" button click
+      const readMoreBtn = card.querySelector('.news-read-more');
+      if (readMoreBtn) {
+        readMoreBtn.addEventListener('click', (e) => {
+          e.stopPropagation(); // Prevent triggering the card click event
+          const slug = card.dataset.newsSlug;
+          if (slug) {
+            showNewsModal(slug);
+          }
+        });
+      }
+    });
+    
+    // Add click event listener to close button
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeNewsModal);
+    }
+    
+    // Add click event listener to modal background (close when clicking outside)
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          closeNewsModal();
+        }
+      });
+    }
+    
+    // Add click event listener to toggle button
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', toggleNews);
+    }
+    
+    // Add keyboard event listener (close modal with Escape key)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
+        closeNewsModal();
+      }
+    });
+  }
+  
+  // Initialize when the page loads
+  document.addEventListener('DOMContentLoaded', initNews);
+  
+  // Also initialize after Astro page transitions
+  document.addEventListener('astro:page-load', initNews);
+</script>

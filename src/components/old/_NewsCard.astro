@@ -1,0 +1,29 @@
+---
+// NewsCard.astro
+const { post } = Astro.props;
+
+// Extract data safely
+const title = post.title || '';
+const date = post.date ? new Date(post.date) : new Date();
+const summary = post.summary || '';
+const slug = post.slug || '';
+---
+
+<article 
+  class="news-card bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-sm mb-6 transform translate-y-0 hover-lift cursor-pointer"
+  data-slug={slug}
+>
+  <h3 class="text-2xl font-bold mb-2 text-gray-800 dark:text-white">{title}</h3>
+  <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+    {date.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})}
+  </p>
+  <p class="text-gray-700 dark:text-gray-200">{summary}</p>
+  <button
+    class="view-news-btn inline-flex items-center mt-4 text-emberBlue-600 hover:text-emberBlue-700 dark:text-emberBlue-300 dark:hover:text-emberBlue-200"
+  >
+    Read more
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+    </svg>
+  </button>
+</article>

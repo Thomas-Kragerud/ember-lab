@@ -23,9 +23,16 @@ const research = defineCollection({
   })
 });
 
-// Define news collection
+
+// Define news collection with schema
 const news = defineCollection({
-  loader: glob({pattern: "**/*.md", base: "./src/content/news"})
+  loader: glob({pattern: "**/*.md", base: "./src/content/news"}),
+  schema: z.object({
+    slug: z.string(),
+    title: z.string(),
+    date: z.string(), // Keep as string, we'll parse it later
+    summary: z.string(),
+  })
 });
 
 // Sponsors collection - each sponsor needs an id
@@ -79,28 +86,28 @@ const robots = defineCollection({
   });
 
 
-// Contact information - structure as a single record
+//Contact information - structure as a single record
 const contact = defineCollection({
-    type: 'data',  // Important: Use 'data' type for single objects
-    schema: z.object({
-      id: z.string(),
-      address: z.object({
-        building: z.string(),
-        street: z.string().optional(),
-        city: z.string(),
-        state: z.string(),
-        zip: z.string(),
-        country: z.string()
-      }),
-      email: z.string().email(),
-      phone: z.string().optional(),
-      social: z.object({
-        twitter: z.string().url().optional(),
-        github: z.string().url().optional(),
-        youtube: z.string().url().optional()
-      }).optional(),
-      map_link: z.string().url().optional()
-    })
+  loader: file("./src/content/contact.yaml"),
+  // schema: z.object({
+  //     id: z.string(),
+  //     address: z.object({
+  //       building: z.string(),
+  //       street: z.string().optional(),
+  //       city: z.string(),
+  //       state: z.string(),
+  //       zip: z.string(),
+  //       country: z.string()
+  //     }),
+  //     email: z.string().email(),
+  //     phone: z.string().optional(),
+  //     social: z.object({
+  //       twitter: z.string().url().optional(),
+  //       github: z.string().url().optional(),
+  //       youtube: z.string().url().optional()
+  //     }).optional(),
+  //     map_link: z.string().url().optional()
+  //   })
   });
 // Change the publications collection configuration
 const publications = defineCollection({

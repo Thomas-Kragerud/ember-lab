@@ -21,8 +21,8 @@ if (paperIds && paperIds.length > 0) {
     const allPublications = await getCollection('publications');
     
     // Debug: Print publication IDs to understand what's available
-    console.log("All publication IDs:", allPublications.map(p => p.id));
-    console.log("Looking for paper IDs:", paperIds);
+    // console.log("All publication IDs:", allPublications.map(p => p.id));
+    // console.log("Looking for paper IDs:", paperIds);
     
     // Filter publications by id
     relatedPublications = allPublications
@@ -32,7 +32,7 @@ if (paperIds && paperIds.length > 0) {
         return (b.data.year || 0) - (a.data.year || 0);
       });
     
-    console.log("Found publications:", relatedPublications.map(p => p.data.title));
+    //console.log("Found publications:", relatedPublications.map(p => p.data.title));
   } catch (error) {
     console.error("Error fetching publications:", error);
   }
@@ -46,14 +46,14 @@ if (isDetailed && area.body) {
 }
 ---
 
-<div id={slug} class="research-area mb-24 scroll-mt-24">
-  <!-- Simple version for homepage -->
+<div id={slug} class="research-area scroll-mt-16">
+    <!-- Simple version for homepage -->
   {!isDetailed && (
-    <a href={`/research#${slug}`} class="group">
-      <div class="research-card relative h-64 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500">
+    <a href={BASE_URL + `/research#${slug}`} class="group">
+      <div class="research-card relative h-52 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 hover-lift">
         <div 
           class="absolute inset-0 bg-cover bg-center transition-all duration-500" 
-          style={`background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url(${homepageImage})`}
+          style={`background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url(${BASE_URL + homepageImage})`}
         ></div>
         
         <div class="relative h-full p-6 flex flex-col justify-end text-white z-10">
