@@ -63,24 +63,24 @@ const sponsors = defineCollection({
 // People collection: Used for people page 
 const people = defineCollection({
   loader: file("./src/content/people.yaml"),
-  schema: z.object({
-    id: z.string(),
-    name: z.string(),
-    type: z.enum(['professor', 'phd_student', 'masters_student', 'undergraduate', 'alumni', 'graduate_researcher', 'postdoc']),
-    title: z.string().optional(),
-    image: z.string(),
-    email: z.string().email().optional(),
-    url: z.string().url().optional(),
-    research: z.string().optional(),
-    destination: z.string().optional(), // For alumni
-    year_graduated: z.number().optional(), // For alumni
-    social: z.object({
-      twitter: z.string().url().optional(),
-      github: z.string().url().optional(),
-      linkedin: z.string().url().optional(),
-      google_scholar: z.string().url().optional()
-    }).optional()
-  })
+  // schema: z.object({
+  //   id: z.string(),
+  //   name: z.string(),
+  //   type: z.enum(['professor', 'phd_student', 'masters_student', 'undergraduate', 'alumni', 'graduate_researcher', 'postdoc']),
+  //   title: z.string().optional(),
+  //   image: z.string(),
+  //   email: z.string().email().optional(),
+  //   url: z.string().url().optional(),
+  //   research: z.string().optional(),
+  //   destination: z.string().optional(), // For alumni
+  //   year_graduated: z.number().optional(), // For alumni
+  //   social: z.object({
+  //     twitter: z.string().url().optional(),
+  //     github: z.string().url().optional(),
+  //     linkedin: z.string().url().optional(),
+  //     google_scholar: z.string().url().optional()
+  //   }).optional()
+  // })
 });
 
 

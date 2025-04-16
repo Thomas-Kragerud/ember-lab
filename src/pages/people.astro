@@ -1,7 +1,78 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
+import PeopleCard from "@components/cards/PeopleCard.astro";
+import { getCollection } from 'astro:content';
+
 const title = "People";
 
+const people = await getCollection('people');
+
+// Define the order of role types for display
+const roleOrder = [
+  'professor', 
+  'associate_professor', 
+  'assistant_professor', 
+  'postdoc', 
+  'phd_student', 
+  'visiting_researchers',
+  'masters_student',
+  'undergraduate', 
+  'staff', 
+  'alumni'
+];
+
+// Group people by role type
+const groupedPeople = roleOrder.reduce((acc, roleType) => {
+  const filtered = people.filter(person => person.data.type === roleType);
+  if (filtered.length > 0) {
+    acc[roleType] = filtered;
+  }
+  return acc;
+}, {} as Record<string, typeof people>);
+
+// Map role types to readable titles
+const titlesGrop = {
+  professor: "Faculty",
+  associate_professor: "Associate Professors",
+  assistant_professor: "Assistant Professors",
+  postdoc: "Postdoctoral Researchers",
+  phd_student: "PhD Students",
+  masters_student: "Masters Students",
+  undergraduate: "Undergraduate Students",
+  visiting_researchers: "Visiting Researchers",
+  staff: "Staff",
+  alumni: "Alumni"
+};
+
 ---
+
 <BaseLayout title={title}>
+    
+  <!-- <div class="py-12"> -->
+   <div class="max-w-5xl mx-auto px-6 py-12">
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">Our Team</h1>
+    <!-- <p class="text-lg text-emberGray-600 dark:text-emberGray-300 mb-12">Meet the researchers and staff behind EMBER Lab</p> -->
+    <p class="text-lg text-emberGray-600 dark:text-emberGray-300 mb-12"></p>
+
+    {roleOrder.map(roleType => {
+      const rolePeople = groupedPeople[roleType];
+      if (!rolePeople) return null;
+      
+      return (
+        <section class="mb-16">
+        <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2 text-gray-800 dark:text-gray-200">
+        <span class="text-emerald-600 dark:text-emerald-400">
+            {titlesGrop[roleType] || roleType.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+        </span>
+        <div class="h-px flex-grow bg-gradient-to-r from-emerald-200 to-transparent dark:from-emerald-800 ml-2"></div>
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {rolePeople.map(person => (
+            <PeopleCard person={person} />
+            ))}
+        </div>
+        </section>
+      );
+    })}
+  </div>
 </BaseLayout>
