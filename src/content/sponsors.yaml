@@ -4,10 +4,6 @@
   logo: "/images/sponsors/nsf_logo.png"
   url: "https://nsf.gov"
 
-- id: bair
-  name: "Berkeley AI Research"
-  logo: "/images/sponsors/bair_logo.png"
-  url: "https://bair.berkeley.edu"
 
 - id: darpa
   name: "DARPA"
