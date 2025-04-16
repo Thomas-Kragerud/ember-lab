@@ -1,7 +1,37 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
+import { getEntry } from 'astro:content';
+import { render } from "astro:content";
+
+const contact_page = await getEntry('contact_page', 'main');
 const title = "Contact";
 
+let Body;
+if (contact_page && contact_page.body) {
+    const { Content } = await render(contact_page);
+    Body = Content;
+}
 ---
 <BaseLayout title={title}>
+    <div class="max-w-4xl mx-auto my-12">
+        <!-- Page title with your brand gradient -->
+        <!-- <h1 class="text-4xl font-bold mb-10 text-gradient">Contact Us</h1> -->
+        
+        <!-- Markdown content with typography styling -->
+        <div class="prose prose-lg dark:prose-invert 
+                    max-w-none
+                    prose-headings:text-emberGray-900 dark:prose-headings:text-emberGray-50
+                    prose-p:text-emberGray-700 dark:prose-p:text-emberGray-100 
+                    prose-a:text-emberBlue-600 dark:prose-a:text-emberBlue-300
+                    prose-a:no-underline hover:prose-a:text-emberBlue-700 dark:hover:prose-a:text-emberBlue-100
+                    prose-strong:text-emberGreen-700 dark:prose-strong:text-emberGreen-300
+                    prose-li:text-emberGray-700 dark:prose-li:text-emberGray-100
+                    prose-th:text-emberGray-900 dark:prose-th:text-white
+                    prose-blockquote:border-l-emberBlue-500 prose-blockquote:text-emberGray-700 dark:prose-blockquote:text-emberGray-300
+                    prose-hr:border-emberGray-300 dark:prose-hr:border-emberGray-700
+                    prose-img:rounded-lg prose-img:shadow-md
+                    theme-transition">
+            {Body && <Body />}
+        </div>
+    </div>
 </BaseLayout>
