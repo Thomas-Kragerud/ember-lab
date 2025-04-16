@@ -179,8 +179,8 @@
 }
 
 .hover-lift:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px -5px rgba(0, 150, 204, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px -3px rgba(0, 150, 204, 0.2);
 }
 
 /* Nav link styling */
@@ -247,7 +247,9 @@ canvas:focus {
 canvas {
   outline: none;
   -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: contain;
 }
+
 
 /* Fixed background gradient for dark mode */
 .fixed.inset-0.pointer-events-none.z-\[-1\] {
@@ -278,3 +280,50 @@ canvas {
 body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+
+
+
+/* ===== RobotViewer loader 2.0 ===== */
+.robot-loader-overlay{
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(255,255,255,.8);
+  backdrop-filter:blur(2px);
+  z-index:10;
+}
+.dark .robot-loader-overlay{
+  background:rgba(17,24,39,.8);           /* gray‑900 @ 80 % */
+}
+
+/* Spinner is now a flex‑box so the logo stays dead‑center */
+.robot-loader-spinner{
+  position:relative;
+  width:6rem; height:6rem;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* Sharp leading edge */
+.robot-loader-spinner::before{
+  content:""; position:absolute; inset:0;
+  border-radius:50%;
+  border:4px solid var(--color-emberBlue-500);
+  border-top-color:transparent;
+  animation:ember-spin 1s linear infinite;
+}
+
+/* Blurred trailing glow */
+.robot-loader-spinner::after{
+  content:""; position:absolute; inset:-2px;   /* slightly larger */
+  border-radius:50%;
+  border:4px solid var(--color-emberBlue-500);
+  border-top-color:transparent;
+  opacity:.4;
+  filter:blur(6px);
+  animation:ember-spin 1s linear infinite;
+}
+
+/* Logo */
+.robot-loader-logo{ width:3rem; height:3rem; }
+
+@keyframes ember-spin{ to{ transform:rotate(360deg);} }
