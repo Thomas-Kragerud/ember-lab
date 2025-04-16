@@ -1,20 +1,22 @@
-- id: cassie
-  name: "Cassie"
-  image: "/images/robots/cassie.jpg"
+- id: g1
+  name: "G1"
+  manufacturer: "Unitree"
+  glb: "/models/g1_photorealistic_export_2.glb"
+  image: "/images/robots/h1.jpg"
   description: "Bipedal robot for dynamic locomotion research"
-  features:
-    - "Powered hip and knee joints"
-    - "Spring-loaded ankles"
-    - "Onboard computing"
   video_url: "https://www.youtube.com/watch?v=example"
-  project_url: "https://example.com/cassie"
 
-- id: spot
-  name: "Spot"
-  image: "/images/robots/spot.jpg"
+- id: go2
+  name: "Go2"
+  manufacturer: "Unitree"
+  glb: "/models/robot_dog_unitree_go2.glb"
+  image: "/images/robots/go2.jpg"
   description: "Quadrupedal robot for multi-terrain mobility"
-  features:
-    - "Onboard navigation"
-    - "Obstacle avoidance"
-    - "Modular payload system"
+  video_url: "https://www.youtube.com/watch?v=example2"
+
+- id: h1
+  name: "H1"
+  manufacturer: "Unitree"
+  image: "/images/robots/h1.webp"
+  description: "Quadrupedal robot for multi-terrain mobility"
   video_url: "https://www.youtube.com/watch?v=example2"
