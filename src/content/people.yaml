@@ -34,7 +34,7 @@
 - id: thomas
   name: "Thomas Kragerud"
   type: "visiting_researchers"
-  title: "Visiting Researchers"
+  title: "Visiting Researcher"
   image: "/images/team/thomas_kragerud.jpg"
   email: "thomas.kragerud@berkeley.edu"
   research: "Robotics Learning"
