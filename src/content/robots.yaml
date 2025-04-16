@@ -1,7 +1,7 @@
 - id: g1
   name: "G1"
   manufacturer: "Unitree"
-  glb: "g1_photorealistic_export_2.glb"
+  glb: "g1_pbr.glb"
   image: "/images/robots/h1.jpg"
   description: "Bipedal robot for dynamic locomotion research"
   video_url: "https://www.youtube.com/watch?v=example"

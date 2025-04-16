@@ -32,7 +32,7 @@ function RobotViewer({ cdn_name }) {
       'camera',
       Math.PI / 2,
       Math.PI / 3,
-      2.5,              // start closer
+      2.2,              // start closer
       Vector3.Zero(),
       scene,
     );
@@ -42,7 +42,7 @@ function RobotViewer({ cdn_name }) {
     camera.attachControl(canvas, false);
 
     /*  ⟳  keep the model rotating  */
-    scene.registerBeforeRender(() => { camera.alpha += 0.001; });
+    scene.registerBeforeRender(() => { camera.alpha += 0.003; });
 
     /* ----------  Lighting  ---------- */
     new HemisphericLight('hemi', new Vector3(0, 1, 0), scene).intensity = 0.8;
