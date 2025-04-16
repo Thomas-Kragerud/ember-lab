@@ -2,7 +2,10 @@
 import { defineCollection, z } from "astro:content";
 import { glob, file } from "astro/loaders";
 
-// Define research collection
+// ********************
+// Markdown Collection 
+// ********************
+// Research collection: Used for indepth content per reaserch area
 const research = defineCollection({
   loader: glob({pattern: "**/*.md", base: "./src/content/research"}),
   schema: z.object({
@@ -24,7 +27,7 @@ const research = defineCollection({
 });
 
 
-// Define news collection with schema
+// News collection: Used for news on home page 
 const news = defineCollection({
   loader: glob({pattern: "**/*.md", base: "./src/content/news"}),
   schema: z.object({
@@ -35,7 +38,18 @@ const news = defineCollection({
   })
 });
 
-// Sponsors collection - each sponsor needs an id
+const contact_page = defineCollection({
+  loader: glob({ 
+    pattern: "contact-page.md",  // This matches only this exact filename
+    base: "./src/content"
+  }),
+});
+
+
+// ********************
+// YAML Collection 
+// ********************
+// Sponsors collection: Used for sponsors on home page 
 const sponsors = defineCollection({
     loader: file("./src/content/sponsors.yaml"),
     schema: z.object({
@@ -46,7 +60,7 @@ const sponsors = defineCollection({
     })
   });
 
-// People collection - each person needs an id
+// People collection: Used for people page 
 const people = defineCollection({
   loader: file("./src/content/people.yaml"),
   schema: z.object({
@@ -71,45 +85,27 @@ const people = defineCollection({
 
 
 
-// Robots collection - each robot needs an id
+// Robots collection: Usef for robot page 
 const robots = defineCollection({
     loader: file("./src/content/robots.yaml"),
-    schema: z.object({
-      id: z.string(),
-      name: z.string(),
-      image: z.string(),
-      description: z.string(),
-      features: z.array(z.string()).optional(),
-      video_url: z.string().url().optional(),
-      project_url: z.string().url().optional()
-    })
+    // schema: z.object({
+    //   id: z.string(),
+    //   name: z.string(),
+    //   image: z.string(),
+    //   description: z.string(),
+    //   features: z.array(z.string()).optional(),
+    //   video_url: z.string().url().optional(),
+    //   project_url: z.string().url().optional()
+    //})
   });
 
 
 //Contact information - structure as a single record
-const contact = defineCollection({
-  loader: file("./src/content/contact.yaml"),
-  // schema: z.object({
-  //     id: z.string(),
-  //     address: z.object({
-  //       building: z.string(),
-  //       street: z.string().optional(),
-  //       city: z.string(),
-  //       state: z.string(),
-  //       zip: z.string(),
-  //       country: z.string()
-  //     }),
-  //     email: z.string().email(),
-  //     phone: z.string().optional(),
-  //     social: z.object({
-  //       twitter: z.string().url().optional(),
-  //       github: z.string().url().optional(),
-  //       youtube: z.string().url().optional()
-  //     }).optional(),
-  //     map_link: z.string().url().optional()
-  //   })
+const contact_info = defineCollection({
+  loader: file("./src/content/contact-info.yaml"),
   });
-// Change the publications collection configuration
+
+// Publications Collection: Used on publication and in reaserch page 
 const publications = defineCollection({
     loader: file("./src/content/publications.yaml"),
     // Remove the z.array wrapper - Astro already treats each entry as a separate object
@@ -146,6 +142,7 @@ const publications = defineCollection({
     })
 });
 
+
 export const collections = { 
   news, 
   research, 
@@ -153,5 +150,6 @@ export const collections = {
   sponsors, 
   people, 
   robots, 
-  contact 
+  contact_info,
+  contact_page,
 };
