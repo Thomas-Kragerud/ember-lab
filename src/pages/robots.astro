@@ -37,7 +37,7 @@ const BASE_URL = import.meta.env.BASE_URL;
             <div class="w-full lg:w-1/2 h-[500px] mt-8 lg:mt-0 relative z-10">
 
               {robot.data.glb ? (
-                <RobotViewer client:only="react" glbPath={ BASE_URL + robot.data.glb} />
+                <RobotViewer client:only="react" cdn_name={robot.data.glb} />
                 // <BabylonViewer client:only="react" />
 
               ) : robot.data.image ? (

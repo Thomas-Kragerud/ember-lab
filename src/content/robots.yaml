@@ -1,7 +1,7 @@
 - id: g1
   name: "G1"
   manufacturer: "Unitree"
-  glb: "/models/g1_photorealistic_export_2.glb"
+  glb: "g1_photorealistic_export_2.glb"
   image: "/images/robots/h1.jpg"
   description: "Bipedal robot for dynamic locomotion research"
   video_url: "https://www.youtube.com/watch?v=example"
@@ -9,7 +9,7 @@
 - id: go2
   name: "Go2"
   manufacturer: "Unitree"
-  glb: "/models/robot_dog_unitree_go2.glb"
+  glb: "robot_dog_unitree_go2.glb"
   image: "/images/robots/go2.jpg"
   description: "Quadrupedal robot for multi-terrain mobility"
   video_url: "https://www.youtube.com/watch?v=example2"

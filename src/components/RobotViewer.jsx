@@ -13,7 +13,7 @@ import '@babylonjs/loaders/glTF';
 
 const BASE_URL = import.meta.env.BASE_URL; // to locate ember_icon.webp
 
-function RobotViewer({ glbPath }) {
+function RobotViewer({ cdn_name }) {
   const containerRef = useRef(null);   // wrapper div
   const canvasRef    = useRef(null);
 
@@ -65,11 +65,17 @@ function RobotViewer({ glbPath }) {
     engine.displayLoadingUI();
 
     /* ----------  Load model  ---------- */
-    const i  = glbPath.lastIndexOf('/');
-    const root = i !== -1 ? glbPath.slice(0, i + 1) : '/';
-    const file = i !== -1 ? glbPath.slice(i + 1) : glbPath;
+    // const i  = glbPath.lastIndexOf('/');
+    // const root_ = i !== -1 ? glbPath.slice(0, i + 1) : '/';
+    // const file_ = i !== -1 ? glbPath.slice(i + 1) : glbPath;
 
-    SceneLoader.Append(root, file, scene,
+    const modelUrl = "https://ember-lab-cdn.b-cdn.net/" + cdn_name;
+
+
+    SceneLoader.Append(
+        "", 
+        modelUrl,
+        scene,
       () => engine.hideLoadingUI(),          // success
       null,
       (s, m, e) => {                         // error
@@ -92,7 +98,7 @@ function RobotViewer({ glbPath }) {
       engine.dispose();
       overlay.remove();
     };
-  }, [glbPath]);
+  }, [cdn_name]);
 
   return (
     <div ref={containerRef} className="relative w-full h-full">

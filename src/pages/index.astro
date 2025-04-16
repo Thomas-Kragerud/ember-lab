@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import BabylonViewer from "@components/BabylonViewer";
+import RobotViewer from "@components/RobotViewer";
 import ResearchCard from "@components/cards/ResearchCard.astro";
 import NewsCard from "@components/cards/NewsCard.astro";
 import { getCollection } from 'astro:content';
@@ -61,7 +62,8 @@ const BASE_URL = import.meta.env.BASE_URL;
     </div>
   </div>
   <div class="w-full lg:w-1/2 h-[500px] mt-8 lg:mt-0 relative z-10">
-    <BabylonViewer client:only="react" />
+    <!-- <BabylonViewer client:only="react" /> -->
+    <RobotViewer client:only="react" cdn_name="robot_dog_unitree_go2.glb" />
   </div>
 </section>
 
