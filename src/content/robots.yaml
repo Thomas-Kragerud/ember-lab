@@ -19,5 +19,5 @@
   manufacturer: "Unitree"
   glb: "h1_pbr.glb"
   image: "/images/robots/h1.webp"
-  description: "Quadrupedal robot for multi-terrain mobility"
+  description: "Bipedal robot for dynamic locomotion research"
   video_url: "https://www.youtube.com/watch?v=example2"
