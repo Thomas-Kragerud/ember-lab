@@ -10,7 +10,7 @@ export default defineConfig({
   site: 'https://ember-lab.eecs.berkeley.edu',                 
   output: "static",
   integrations: [react()],
-  //outDir: "./docs",
+  outDir: "./docs",
 
   vite: {
     plugins: [tailwindcss()],
