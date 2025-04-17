@@ -10,7 +10,7 @@ summary: "Our lab has established a 3-year research partnership with Robotics Fr
 We are excited to announce a major **3-year research partnership** between the EMBER Lab and **Robotics Frontiers Inc.**, a leader in industrial automation and collaborative robotics. This partnership, valued at $1.8 million, will accelerate the development and deployment of next-generation collaborative robots for advanced manufacturing.
 
 <p align="center">
-  <img src="/ember-lab/images/news/berkeley-logo.png" alt="EMBER Lab and Robotics Frontiers Partnership" width="250" style="height:auto;">
+  <img src="/images/news/berkeley-logo.png" alt="EMBER Lab and Robotics Frontiers Partnership" width="250" style="height:auto;">
 </p>
 
 *The partnership will focus on developing robots that can work safely alongside human workers in complex manufacturing environments*
@@ -64,7 +64,7 @@ The initial project under this partnership will focus on developing a robotic sy
 * Quality verification through visual and tactile sensing
 * Learning from human demonstrations
 
-![Adaptive Assembly Demonstration](/ember-lab/images/news/berkeley-logo.png)
+![Adaptive Assembly Demonstration](/images/news/berkeley-logo.png)
 *Prototype of our adaptive assembly system being tested with smartphone components*
 
 ## Future Collaboration Opportunities

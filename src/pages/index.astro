@@ -35,11 +35,16 @@ const allResearchAreas = await getCollection('research', entry =>
 const featuredAreas = allResearchAreas.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
 
 const BASE_URL = import.meta.env.BASE_URL;
+
 ---
 
 <BaseLayout title={title}>
 
 <!-- Hero with gradient background -->
+<h2>BASE_URL: {BASE_URL}</h2>
+<p>Hello</p>
+<h3>Image path: {BASE_URL + "images/ember_icon.webp"}</h3>
+
 <section class="h-almost-screen w-full px-6 bg-gradient-to-r from-emberGreen-500 via-emberBlue-500 to-emberGray-500 text-white dark:text-white text-gray-800 flex flex-col lg:flex-row items-center rounded-xl shadow-lg my-8 overflow-hidden">
   <div class="max-w-xl py-12 lg:py-0 relative z-10">
     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-gray-900 dark:text-white">
@@ -47,6 +52,7 @@ const BASE_URL = import.meta.env.BASE_URL;
       <span class="block">Intelligence &</span>
       <span class="block">Robotics Lab</span>
     </h1>
+    <img src="">
     <p class="text-xl mb-6 text-gray-800 dark:text-white">
       We combine machine learning, AI, and mechanical design to develop 
       robots that perceive, learn, and act autonomously in complex environments.

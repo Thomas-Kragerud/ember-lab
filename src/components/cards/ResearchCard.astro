@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 import PublicationCard from "@components/cards/PublicationCard.astro";
 import { render } from 'astro:content';
-const BASE_URL = import.meta.env.BASE_URL;
 
 const { area, isDetailed = false } = Astro.props;
 
@@ -49,11 +48,11 @@ if (isDetailed && area.body) {
 <div id={slug} class="research-area scroll-mt-16">
     <!-- Simple version for homepage -->
   {!isDetailed && (
-    <a href={BASE_URL + `/research#${slug}`} class="group">
+    <a href={`/research#${slug}`} class="group">
       <div class="research-card relative h-52 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 hover-lift">
         <div 
           class="absolute inset-0 bg-cover bg-center transition-all duration-500" 
-          style={`background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url(${BASE_URL + homepageImage})`}
+          style={`background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url(${homepageImage})`}
         ></div>
         
         <div class="relative h-full p-6 flex flex-col justify-end text-white z-10">

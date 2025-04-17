@@ -10,7 +10,7 @@ summary: "Our latest humanoid robot, EMBER-1, demonstrated unprecedented dexteri
 Last week, the EMBER Lab team made waves at **TechX 2025** with a groundbreaking demonstration of our latest humanoid robot, EMBER-1. The presentation showcased several key innovations in robot learning and control.
 
 <p align="center">
-  <img src="/ember-lab/images/news/berkeley-logo.png" alt="EMBER-1 Robot Demonstration" width="150" style="height:auto;">
+  <img src="/images/news/berkeley-logo.png" alt="EMBER-1 Robot Demonstration" width="150" style="height:auto;">
 </p>
 
 *EMBER-1 performing precise object manipulation tasks at TechX 2025*
@@ -48,5 +48,5 @@ Our demonstration highlighted three major breakthroughs:
 
 The highlight of our presentation was a series of complex tasks performed by EMBER-1:
 
-![Complex Task Execution](/ember-lab/images/news/berkeley-logo.png)
+![Complex Task Execution](/images/news/berkeley-logo.png)
 *EMBER-1 demonstrating fine motor skills through a series of precision tasks*

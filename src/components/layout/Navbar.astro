@@ -15,7 +15,7 @@ const navLinks = [
 
 // build‑time helper so initial HTML ships with correct active classes
 function isActive(path) {
-  const full = BASE_URL + path;
+  const full = path;
   return currentPath === full || currentPath === full + "/";
 }
 ---
@@ -29,11 +29,11 @@ function isActive(path) {
 
   <!-- row: logo + desktop nav + toggles -->
   <div class="px-8 py-1 flex items-center justify-between">
-    <a href={BASE_URL + "/"} class="flex items-center space-x-3 group">
+    <a href={"/"} class="flex items-center space-x-3 group">
       <div class="w-10 h-10 bg-gradient-to-r from-emberGreen-500 to-emberBlue-500
                   rounded-full flex items-center justify-center shadow-lg">
         <!-- <span class="text-white font-bold">E</span> -->
-        <img src={BASE_URL + "/images/ember_icon.webp"} alt="EMBER Lab Logo" class="w-8 h-8 object-cover" />
+        <img src={"/images/ember_icon.webp"} alt="EMBER Lab Logo" class="w-8 h-8 object-cover" />
 
       </div>
       <span class="text-xl font-bold text-gradient">EMBER Lab</span>
@@ -42,7 +42,7 @@ function isActive(path) {
     <!-- desktop links -->
     <ul class="hidden md:flex space-x-8 text-lg">
       {navLinks.map(link => (
-        <li><a href={BASE_URL + link.href}
+        <li><a href={link.href}
                class={`nav-link px-4 py-2 transition-standard ${isActive(link.href)
                  ? 'text-emberGreen-500 dark:text-emberGreen-300'
                  : 'text-gray-600 dark:text-gray-300'}`}>{link.label}</a></li>

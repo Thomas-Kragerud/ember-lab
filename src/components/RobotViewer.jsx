@@ -11,8 +11,6 @@ import {
 } from '@babylonjs/core';
 import '@babylonjs/loaders/glTF';
 
-const BASE_URL = import.meta.env.BASE_URL; // to locate ember_icon.webp
-
 function RobotViewer({ cdn_name }) {
   const containerRef = useRef(null);   // wrapper div
   const canvasRef    = useRef(null);
@@ -52,7 +50,7 @@ function RobotViewer({ cdn_name }) {
     overlay.className = 'robot-loader-overlay';
     overlay.innerHTML = `
       <div class="robot-loader-spinner">
-        <img src="${BASE_URL}/images/ember_icon.webp"
+        <img src="/images/ember_icon.webp"
              class="robot-loader-logo" alt="Ember logo"/>
       </div>`;
     container.appendChild(overlay);
