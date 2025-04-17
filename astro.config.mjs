@@ -7,11 +7,10 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://ember-lab.eecs.berkeley.edu',
-  base: '/',                       
+  site: 'https://ember-lab.eecs.berkeley.edu',                 
   output: "static",
   integrations: [react()],
-  outDir: "./docs",
+  //outDir: "./docs",
 
   vite: {
     plugins: [tailwindcss()],
