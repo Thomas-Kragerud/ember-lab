@@ -6,8 +6,7 @@ import RobotViewer from '@components/RobotViewer.jsx';
 import BabylonViewer from "@components/BabylonViewer";
 const title = "Robots";
 const robots = await getCollection('robots');
-const BASE_URL = import.meta.env.BASE_URL;
-console.log("base url", BASE_URL);
+
 ---
 
 <BaseLayout title={title}>
@@ -43,7 +42,7 @@ console.log("base url", BASE_URL);
 
               ) : robot.data.image ? (
                 <img 
-                  src={BASE_URL + robot.data.image} 
+                  src={robot.data.image} 
                   alt={`${robot.data.name} robot`} 
                   class="w-full h-full object-cover rounded-xl"
                 />

@@ -5,7 +5,6 @@ import "../styles/global.css";
 import { ClientRouter } from 'astro:transitions';
 
 const { title } = Astro.props;
-const BASE_URL = import.meta.env.BASE_URL;
 ---
 
 <html lang="en" class="scroll-smooth">
@@ -13,7 +12,7 @@ const BASE_URL = import.meta.env.BASE_URL;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title ? `${title} – EMBER Lab` : 'EMBER Lab'}</title>
-    <link rel="icon" type="image/webp" href={BASE_URL + "/images/ember_icon.webp"}/>
+    <link rel="icon" type="image/webp" href={"/images/ember_icon.webp"}/>
 
     <!-- 1️⃣ Critical in‑head CSS to guarantee a dark background is present *before* paint -->
     <style is:inline>

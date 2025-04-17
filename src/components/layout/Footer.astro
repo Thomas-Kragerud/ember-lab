@@ -3,7 +3,6 @@ import { getEntry } from 'astro:content';
 
 const contact = await getEntry('contact_info', 'main');
 
-const BASE_URL = import.meta.env.BASE_URL;
 ---
 <footer class="bg-gray-50 dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 mt-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -12,7 +11,7 @@ const BASE_URL = import.meta.env.BASE_URL;
         <div>
           <div class="flex items-center space-x-2 mb-4">
             <div class="w-10 h-10 bg-gradient-to-r from-emberGreen-500 to-emberBlue-500 rounded-full flex items-center justify-center">
-              <img src={BASE_URL + "/images/ember_icon.webp"} alt="EMBER Lab Logo" class="w-8 h-8 object-cover" />
+              <img src={"/images/ember_icon.webp"} alt="EMBER Lab Logo" class="w-8 h-8 object-cover" />
             </div>
             <span class="text-xl font-semibold text-gradient">EMBER Lab</span>
           </div>
@@ -49,7 +48,7 @@ const BASE_URL = import.meta.env.BASE_URL;
         <!-- Berkeley Logo Center -->
         <div class="flex flex-col items-center justify-center">
           <a href="https://berkeley.edu" target="_blank" rel="noopener" class="inline-block">
-            <img src={BASE_URL + "/images/berkeley-logo.png"} alt="UC Berkeley" class="h-16 mb-4" />
+            <img src={"/images/berkeley-logo.png"} alt="UC Berkeley" class="h-16 mb-4" />
           </a>
           <p class="text-gray-500 dark:text-gray-400 text-center text-sm">
             {contact.data.department}

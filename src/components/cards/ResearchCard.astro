@@ -75,7 +75,7 @@ if (isDetailed && area.body) {
         {detailedImages.length > 0 && (
           <div 
             class="absolute inset-0 bg-cover bg-center parallax-bg transition-transform duration-500" 
-            style={`background-image: url(${BASE_URL + detailedImages[0].url})`}
+            style={`background-image: url(${detailedImages[0].url})`}
           >
             <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60"></div>
           </div>
@@ -143,7 +143,7 @@ if (isDetailed && area.body) {
             <div class="space-y-4">
               {detailedImages.slice(1).map((image) => (
                 <div class="overflow-hidden rounded-lg shadow-md">
-                  <img src={BASE_URL + image.url} alt={image.alt || ''} class="w-full h-auto" />
+                  <img src={image.url} alt={image.alt || ''} class="w-full h-auto" />
                   {image.caption && (
                     <p class="p-3 text-sm text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800">
                       {image.caption}

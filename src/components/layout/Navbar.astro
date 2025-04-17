@@ -1,6 +1,5 @@
 ---
 // src/components/layout/Navbar.astro
-const BASE_URL = import.meta.env.BASE_URL;
 const currentPath = Astro.url.pathname;
 
 // central link registry – one edit = everywhere
@@ -83,7 +82,7 @@ function isActive(path) {
               rounded-b-xl border-t border-gray-100 dark:border-gray-700 theme-transition">
     <ul class="space-y-1">
       {navLinks.map(link => (
-        <li><a href={BASE_URL + link.href}
+        <li><a href={link.href}
                class={`block py-2 px-4 rounded-lg ${isActive(link.href)
                  ? 'text-emberGreen-500 dark:text-emberGreen-300'
                  : 'text-gray-600 dark:text-gray-300 hover:text-emberGreen-500 dark:hover:text-emberGreen-300'}`}>{link.label}</a></li>

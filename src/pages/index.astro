@@ -34,17 +34,12 @@ const allResearchAreas = await getCollection('research', entry =>
 );
 const featuredAreas = allResearchAreas.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
 
-const BASE_URL = import.meta.env.BASE_URL;
 
 ---
 
 <BaseLayout title={title}>
 
 <!-- Hero with gradient background -->
-<h2>BASE_URL: {BASE_URL}</h2>
-<p>Hello</p>
-<h3>Image path: {BASE_URL + "images/ember_icon.webp"}</h3>
-
 <section class="h-almost-screen w-full px-6 bg-gradient-to-r from-emberGreen-500 via-emberBlue-500 to-emberGray-500 text-white dark:text-white text-gray-800 flex flex-col lg:flex-row items-center rounded-xl shadow-lg my-8 overflow-hidden">
   <div class="max-w-xl py-12 lg:py-0 relative z-10">
     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-gray-900 dark:text-white">
@@ -62,7 +57,7 @@ const BASE_URL = import.meta.env.BASE_URL;
       reinforcement learning, and embodied AI for next-generation robotics.
     </p>
     <div class="mt-8">
-      <a href={BASE_URL + "/publications"} class="px-8 py-4 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 inline-block hover:-translate-y-1 bg-ember-gradient">
+      <a href={"/publications"} class="px-8 py-4 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 inline-block hover:-translate-y-1 bg-ember-gradient">
         Our Publications
       </a>
     </div>
@@ -84,7 +79,7 @@ const BASE_URL = import.meta.env.BASE_URL;
     </div>
     
     <div class="mt-8 text-center">
-      <a href={BASE_URL + "/research"} class="px-6 py-3 bg-emberBlue-500 hover:bg-emberBlue-600 text-white rounded-lg transition-all duration-300 inline-flex items-center hover:-translate-y-1">
+      <a href={"/research"} class="px-6 py-3 bg-emberBlue-500 hover:bg-emberBlue-600 text-white rounded-lg transition-all duration-300 inline-flex items-center hover:-translate-y-1">
         Explore All Research
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -146,7 +141,7 @@ const BASE_URL = import.meta.env.BASE_URL;
                 class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl 
                         transition-all duration-300 flex items-center justify-center 
                         w-60 h-32">
-                <img src={BASE_URL + sponsor.data.logo} alt={sponsor.data.name} 
+                <img src={sponsor.data.logo} alt={sponsor.data.name} 
                     class="max-h-16 max-w-full object-contain filter dark:brightness-90 dark:contrast-125" />
               </a>
             </div>
