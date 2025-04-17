@@ -19,6 +19,6 @@ export default defineConfig({
   },
   build: {
     assets: 'astro',                 // This ensures asset names don't have underscores
-    assetsPrefix: "./"
+    //assetsPrefix: "./"
   }
 });
