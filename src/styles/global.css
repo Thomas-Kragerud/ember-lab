@@ -36,7 +36,7 @@
 
     /* Custom background image */
     --bg-ember-gradient: linear-gradient(135deg, #22c87a 0%, #0096cc 50%, #607d8b 100%);
-
+    
     /* Custom box shadow */
     --shadow-ember: 0 4px 20px -2px rgba(0, 150, 204, 0.25);
 
@@ -56,7 +56,7 @@
     --color-emberBlue-700: #005170;
 
     /* Custom background image for dark mode */
-    --bg-ember-gradient: linear-gradient(135deg, #0a6e44 0%, #005170 50%, #435761 100%);
+    --bg-ember-gradient: linear-gradient(135deg, #127859 0%, #00638a 50%, #526b7f 100%);
 
     /* Custom box shadow for dark mode */
     --shadow-ember: 0 4px 20px -2px rgba(0, 120, 184, 0.35);
