@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/partytown": "^2.1.4",
     "@astrojs/react": "^4.2.3",
     "@babylonjs/core": "^8.2.0",
     "@babylonjs/loaders": "^8.2.0",

@@ -12,7 +12,9 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title ? `${title} – EMBER Lab` : 'EMBER Lab'}</title>
-    <link rel="icon" type="image/webp" href={"/images/ember_icon.webp"}/>
+    <!-- <link rel="icon" type="image/webp" href={"/images/ember_icon.webp"}/> -->
+    <link rel="icon" type="image/webp" href={"/images/logo/logo_3.png"}/>
+
 
     <!-- 1️⃣ Critical in‑head CSS to guarantee a dark background is present *before* paint -->
     <style is:inline>
@@ -85,6 +87,22 @@ const { title } = Astro.props;
         });
       })();
     </script>
+
+    <!-- Use partytown to run analytics script in a seperate thread  -->
+    <!-- Load external google analytics library  -->
+    <script 
+      type="text/partytown" 
+      async 
+      src="https://www.googletagmanager.com/gtag/js?id=G-K19PS9QXYB"
+    ></script>
+    <!-- Initialisation code, creates a datalayer if not exist, define gtag func that pushes data to dataLayer, initialize tracking with timestamp -->
+    <script type="text/partytown">
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-K19PS9QXYB');
+    </script>
+
   </head>
 
   <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 font-['Inter',sans-serif] min-h-screen flex flex-col">
