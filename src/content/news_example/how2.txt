@@ -1,0 +1,16 @@
+In order to use the news section, add one of the example .md files into the news folder.
+If there are no news files in the folder, the news section will not be shown on the homepage.
+
+A news entry is simply a Markdown file with some additional fields. These fields are placed in the Frontmatter — the section at the top of the file enclosed by three dashes (---). They are required for Astro to parse the file and enable website functionality.
+
+Example:
+---
+slug: "robotics-frontiers-partnership"
+title: "EMBER Lab Launches Industry Partnership with Robotics Frontiers Inc."
+date: "2023-10-12"
+summary: "Our lab has established a 3-year research partnership with Robotics Frontiers Inc. to develop next-generation collaborative robots for manufacturing."
+---
+
+The Frontmatter contains metadata like the slug, which must be a unique identifier for the article.
+title and summary are shown in the small version of the news card on the homepage.
+The rest of the file — the Markdown content below the Frontmatter — is what gets displayed when the user clicks into the full news article.

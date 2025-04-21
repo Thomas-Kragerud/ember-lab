@@ -1,24 +1,3 @@
-- id: pathways
-  title: "Pathways to Data Scaling Law of Robotics Foundation Model"
-  authors:
-      - name: "Haoru Xue" 
-        equal_contribution: true
-        url: "https://example.com/chaoyi" 
-      - name: "Xiaoyu Huang"
-        equal_contribution: true
-        url: "https://scholar.google.com/citations?user=G-x_szsAAAAJ&hl=en"
-      - name: Thomas Kragerud
-  venue:
-    acronym: CoRL
-    name:  Conference on Robot Learning
-  year: 2025
-  date: "2025-04-30"
-  website: "https://haoruxue.github.io/data-scaling-law-of-rfm/"
-  image: "/images/publications/pathway_2025.png"
-  is_preprint: true
-  tldr: "The single most valuable lesson from the success of LLM is that scaling works. Before we are carried away by all the fancy current techniques of RL finetuning (e.g. Deepseek R1), RAG, or inference-time compute, the scaling of data is the single most important thing for RFM to gain rookie-level capabilities."
-
-
 - id: dile_mpc
   title: "Full-Order Sampling-Based MPC for Torque-Level Locomotion Control via Diffusion-Style Annealing"
   authors:

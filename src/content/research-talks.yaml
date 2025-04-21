@@ -1,0 +1,17 @@
+- id: haoru_icra_2024
+  date: "2024 May"
+  title: "Oral on “Learning MPC with Error Dynamics Regression for Autonomous Racing“"
+  duration: "7 minutes"
+  links:
+    - label: "recording"
+      url: "https://www.youtube.com/watch?v=o_tA-6iSN20"
+    - label: "slides"
+      url: "https://docs.google.com/presentation/d/1KbJeHkdISK4lmr8HYspsVJcHHV1uZECWA6Z5KSfU1Rs/edit?slide=id.p#slide=id.p"
+
+# - id: gt_irim_2024
+#   date: "2024 Sep"
+#   title: "Georgia Tech IRIM Seminar Talk: Unifying Semantic and Physical Intelligence for Generalist Humanoid Robots"
+#   duration: "one hour"
+#   links:
+#     - label: "recording"
+#       url: "https://example.com/recording2"

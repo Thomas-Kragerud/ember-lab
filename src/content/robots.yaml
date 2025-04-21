@@ -4,7 +4,7 @@
   glb: "g1_pbr.glb"
   image: "/images/robots/h1.jpg"
   description: "Bipedal robot for dynamic locomotion research"
-  video_url: "https://www.youtube.com/watch?v=example"
+  video_url: "https://www.youtube.com/watch?v=StLp4Z-ul44"
 
 - id: go2
   name: "Go2"
@@ -12,7 +12,7 @@
   glb: "robot_dog_unitree_go2.glb"
   image: "/images/robots/go2.jpg"
   description: "Quadrupedal robot for multi-terrain mobility"
-  video_url: "https://www.youtube.com/watch?v=example2"
+  video_url: "https://www.youtube.com/watch?v=8ClYBtfhkaw"
 
 - id: h1
   name: "H1"
@@ -20,4 +20,4 @@
   glb: "h1_pbr.glb"
   image: "/images/robots/h1.webp"
   description: "Bipedal robot for dynamic locomotion research"
-  video_url: "https://www.youtube.com/watch?v=example2"
+  video_url: "https://www.youtube.com/watch?v=V1LyWsiTgms"

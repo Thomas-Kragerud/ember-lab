@@ -1,0 +1,4 @@
+Each research area is, in reality, a Markdown file. You can think of the information in the frontmatter as a “YAML file.”
+It’s important to note that the key_papers field links to the id field in the publications.yaml file, so papers only need to be registered once.
+
+When you add, say, dile_mpc as a key paper, it will show a miniaturized version of the paper in the research area card.

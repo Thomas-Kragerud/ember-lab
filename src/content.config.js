@@ -143,9 +143,15 @@ const publications = defineCollection({
 });
 
 
+const research_talks = defineCollection({
+  loader: file("./src/content/research-talks.yaml"),
+})
+
+
 export const collections = { 
   news, 
   research, 
+  research_talks,
   publications, 
   sponsors, 
   people, 
