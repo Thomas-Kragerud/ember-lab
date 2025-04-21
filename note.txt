@@ -1,3 +1,4 @@
 To refresh paige run this command insite the doecs folder: find . -type d -exec chmod a+rx {} + && find . -type f -exec chmod a+r {} +
 
 
+location on the eecs server: /project/eecs/sastry/www-pages/ember-lab-website/ember-lab/docs
